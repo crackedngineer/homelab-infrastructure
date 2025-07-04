@@ -10,7 +10,7 @@ services:
       - agno_network
 
   agent:
-    image: subhomoy/agno-agent:latest
+    image: subhomoy/homelab-agno-service:latest
     environment:
       - LITELLM_BASE_URL=${LITELLM_BASE_URL}
       - LITELLM_API_KEY=${LITELLM_API_KEY}
