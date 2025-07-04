@@ -16,7 +16,7 @@ services:
       - LITELLM_API_KEY=${LITELLM_API_KEY}
     restart: unless-stopped
     ports:
-      - 7777:7777
+      - 8000:8000
     networks:
       - agno_network
 
