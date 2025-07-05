@@ -1,11 +1,22 @@
-version: '3.8'
-
 services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8000:10000"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/proxy_params:/etc/nginx/proxy_params
+    depends_on:
+      - ui
+      - agent
+    networks:
+      - agno_network
+
   ui:
     image: subhomoy/agno-ui:latest
-    ports:
-      - 3000:3000
     restart: unless-stopped
+    depends_on:
+      - agent
     networks:
       - agno_network
 
@@ -16,8 +27,6 @@ services:
       - LITELLM_API_KEY=${LITELLM_API_KEY}
       - LITELLM_MODEL_ID=${LITELLM_MODEL_ID}
     restart: unless-stopped
-    ports:
-      - 8000:8000
     networks:
       - agno_network
 

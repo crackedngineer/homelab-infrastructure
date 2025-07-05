@@ -1,0 +1,34 @@
+# Disable proxy buffering
+# This directive controls whether the response should be buffered. Disabling buffering can be useful for streaming
+# or if the response size is large or expected to arrive quickly. It ensures that the data is sent to the client as
+# soon as it is received from the proxied server.
+proxy_buffering off;
+
+# Set the size of a buffer used for reading the first part of the response received from the proxied server.
+# This setting adjusts the buffer size for reading responses. A larger buffer size allows more data to be read at once.
+proxy_buffer_size 128k;
+
+# Define the number and size of buffers used for reading a response.
+# Here '4 256k' means that up to 4 buffers, each of size 256 kB, can be used to store the response from the proxy server.
+# This is helpful for handling larger responses efficiently.
+proxy_buffers 4 256k;
+
+# Set the maximum size of temporary buffers used for proxied responses when they are busy.
+# This setting limits the total amount of memory that can be used for buffering responses for a busy connection.
+proxy_busy_buffers_size 256k;
+
+# Set the header field "Host" to the value of the current host in the client request.
+# This header is critical for applications behind the proxy to generate correct links and redirects, and perform host-based routing.
+proxy_set_header Host $host;
+
+# Set the header field "X-Real-IP" to the client's IP address.
+# Useful for logging and generating statistics, as well as for backend applications to know the real IP address of the client.
+proxy_set_header X-Real-IP $remote_addr;
+
+# Append the client’s IP address to the 'X-Forwarded-For' header and pass it to the backend.
+# This header is used for identifying the originating IP address of a client connecting through an HTTP proxy or load balancer.
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+# Set the 'X-Forwarded-Proto' header to the scheme of the connection between the client and the proxy server (e.g., 'http' or 'https').
+# This is useful for applications behind a proxy that need to know the original protocol used by the client, especially important for security.
+proxy_set_header X-Forwarded-Proto $scheme;
