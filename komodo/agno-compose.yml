@@ -1,6 +1,7 @@
 services:
   nginx:
     image: nginx:latest
+    restart: unless-stopped
     ports:
       - "8000:10000"
     volumes:
