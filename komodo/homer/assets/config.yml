@@ -14,8 +14,8 @@ services:
     icon: "fas fa-chart-line"
     items:
       - name: "Grafana"
-        # type: Ping
-        # method: head
+        type: Ping
+        method: head
         logo: "https://cdn.jsdelivr.net/gh/selfhst/icons/png/grafana.png"
         subtitle: "Monitoring and metrics"
         tag: "dashboard"
@@ -85,18 +85,19 @@ services:
     items:
       - name: "Proxmox - Node"
         logo: "https://cdn.jsdelivr.net/gh/selfhst/icons/png/proxmox.png"
-        type: "Proxmox"
         url: "https://100.81.69.28:8006/"
-        node: "pve"
-        warning_value: 50
-        danger_value: 80
+        target: "_blank"
+
+        # type: "Proxmox"
+        # node: "pve"
+        # warning_value: 50
+        # danger_value: 80
         # api_token: "PVEAPIToken=root@pam!homer=234251f4-5807-46ed-aef8-c368d360120f"
         # # values below this line are optional (default value are false/empty):
         # hide_decimals: true # removes decimals from stats values.
         # hide: ["vms", "vms_total", "lxcs", "lxcs_total", "disk", "mem", "cpu"] # hides information. Possible values are "vms", "vms_total", "lxcs", "lxcs_total", "disk", "mem" and "cpu".
         # small_font_on_small_screens: true # uses small font on small screens (like mobile)
         # small_font_on_desktop: true
-        target: "_blank"
 
       - name: "Home Assistant"
         type: "HomeAssistant"
@@ -134,13 +135,14 @@ services:
         logo: "https://cdn.jsdelivr.net/gh/selfhst/icons/png/pi-hole.png"
         subtitle: "Ad Blocker DNS"
         tag: "dns"
-        url: "http://pihole.local.oderna.in/admin/"
+        url: "http://pihole.local.oderna.in/"
         target: "_blank"
+
         # endpoint: "http://192.168.0.151" # optional, For v6 API, this is the base URL used to fetch Pi-hole data overwriting the url
-        apikey: "<---insert-api-key-here--->" # optional, needed if web interface is password protected
-        type: "PiHole"
-        apiVersion: 6 # optional, defaults to 5. Use 6 if your PiHole instance uses API v6
-        checkInterval: 3000 # optional, defaults to 300000. interval in ms to check Pi-hole status
+        # apikey: "<---insert-api-key-here--->" # optional, needed if web interface is password protected
+        # type: "PiHole"
+        # apiVersion: 6 # optional, defaults to 5. Use 6 if your PiHole instance uses API v6
+        # checkInterval: 3000 # optional, defaults to 300000. interval in ms to check Pi-hole status
 
       - name: "Agno Agent"
         logo: "assets/icons/agno.png"
