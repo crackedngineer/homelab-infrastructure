@@ -90,12 +90,12 @@ services:
         node: "pve"
         warning_value: 50
         danger_value: 80
-        api_token: "PVEAPIToken=root@pam!homer=234251f4-5807-46ed-aef8-c368d360120f"
-        # values below this line are optional (default value are false/empty):
-        hide_decimals: true # removes decimals from stats values.
-        hide: ["vms", "vms_total", "lxcs", "lxcs_total", "disk", "mem", "cpu"] # hides information. Possible values are "vms", "vms_total", "lxcs", "lxcs_total", "disk", "mem" and "cpu".
-        small_font_on_small_screens: true # uses small font on small screens (like mobile)
-        small_font_on_desktop: true
+        # api_token: "PVEAPIToken=root@pam!homer=234251f4-5807-46ed-aef8-c368d360120f"
+        # # values below this line are optional (default value are false/empty):
+        # hide_decimals: true # removes decimals from stats values.
+        # hide: ["vms", "vms_total", "lxcs", "lxcs_total", "disk", "mem", "cpu"] # hides information. Possible values are "vms", "vms_total", "lxcs", "lxcs_total", "disk", "mem" and "cpu".
+        # small_font_on_small_screens: true # uses small font on small screens (like mobile)
+        # small_font_on_desktop: true
         target: "_blank"
 
       - name: "Home Assistant"
