@@ -135,7 +135,7 @@ services:
         logo: "https://cdn.jsdelivr.net/gh/selfhst/icons/png/pi-hole.png"
         subtitle: "Ad Blocker DNS"
         tag: "dns"
-        url: "http://pihole.local.oderna.in/"
+        url: "http://pihole.local.oderna.in/admin/"
         target: "_blank"
 
         # endpoint: "http://192.168.0.151" # optional, For v6 API, this is the base URL used to fetch Pi-hole data overwriting the url
