@@ -70,7 +70,7 @@ services:
         logo: "https://cdn.jsdelivr.net/gh/selfhst/icons/webp/it-tools.webp"
         subtitle: "Network & Dev Tools"
         tag: "dev"
-        url: "http://ittools.local.odern.in"
+        url: "http://ittools.local.oderna.in"
         target: "_blank"
 
       - name: "OmniTools"
