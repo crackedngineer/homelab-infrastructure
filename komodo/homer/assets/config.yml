@@ -79,6 +79,12 @@ services:
         tag: "tools"
         url: "http://omnitools.local.oderna.in"
         target: "_blank"
+      
+      - name: "CyberChef"
+        logo: "https://cdn.jsdelivr.net/gh/selfhst/icons/png/cyberchef.png"
+        tag: "tools"
+        url: "https://gchq.github.io/CyberChef"
+        target: "_blank"
 
   - name: "System & Infra"
     icon: "fas fa-network-wired"
