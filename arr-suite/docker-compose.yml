@@ -11,8 +11,8 @@ services:
     container_name: gluetun
     cap_add:
       - NET_ADMIN
-    # devices:
-    #   - /dev/net/tun:/dev/net/tun # If running on an LXC see readme for more info.
+    devices:
+      - /dev/net/tun:/dev/net/tun # If running on an LXC see readme for more info.
     networks:
       servarrnetwork:
         ipv4_address: 172.39.0.2
