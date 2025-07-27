@@ -21,6 +21,9 @@ services:
         - ${ARRPATH}Downloads:/downloads
       ports:
         - 9696:9696
+      dns:
+        - 8.8.8.8
+        - 1.1.1.1
       restart: unless-stopped
       env_file:
         - '.env'
@@ -51,12 +54,12 @@ services:
       networks:
         - arrnet
         
-  # ██████╗  █████╗ ██████╗  █████╗ ██████╗ ██████╗ 
-  # ██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗
-  # ██████╔╝███████║██║  ██║███████║██████╔╝██████╔╝
-  # ██╔══██╗██╔══██║██║  ██║██╔══██║██╔══██╗██╔══██╗
-  # ██║  ██║██║  ██║██████╔╝██║  ██║██║  ██║██║  ██║
-  # ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝                                              
+    # ██████╗  █████╗ ██████╗  █████╗ ██████╗ ██████╗ 
+    # ██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗
+    # ██████╔╝███████║██║  ██║███████║██████╔╝██████╔╝
+    # ██╔══██╗██╔══██║██║  ██║██╔══██║██╔══██╗██╔══██╗
+    # ██║  ██║██║  ██║██████╔╝██║  ██║██║  ██║██║  ██║
+    # ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝                                              
 
     radarr:
       image: linuxserver/radarr:latest
@@ -120,31 +123,6 @@ services:
         - '.env'
       networks:
         - arrnet
-
-  #      ██╗███████╗██╗     ██╗  ██╗   ██╗███████╗██╗███╗   ██╗
-  #      ██║██╔════╝██║     ██║  ╚██╗ ██╔╝██╔════╝██║████╗  ██║
-  #      ██║█████╗  ██║     ██║   ╚████╔╝ █████╗  ██║██╔██╗ ██║
-  # ██   ██║██╔══╝  ██║     ██║    ╚██╔╝  ██╔══╝  ██║██║╚██╗██║
-  # ╚█████╔╝███████╗███████╗███████╗██║   ██║     ██║██║ ╚████║
-  #  ╚════╝ ╚══════╝╚══════╝╚══════╝╚═╝   ╚═╝     ╚═╝╚═╝  ╚═══╝
-  
-    jellyfin:
-      image: linuxserver/jellyfin
-      container_name: jellyfin
-      ports:
-        - '8096:8096/tcp'   # Jellyfin web interface
-        - '7359:7359/udp'   # Network discovery
-        - '1900:1900/udp'   # DLNA port
-      volumes:
-        - ${ARRPATH}Jellyfin/config:/config
-        - ${ARRPATH}Radarr/movies:/data/Movies
-        - ${ARRPATH}Sonarr/tvshows:/data/TVShows
-        - ${ARRPATH}Lidarr/music:/data/Music
-      env_file:
-        - '.env'
-      restart: unless-stopped
-      networks:
-        - arrnet
         
   #  ██████╗ ██████╗ ██╗████████╗████████╗ ██████╗ ██████╗ ██████╗ ███████╗███╗   ██╗████████╗
   # ██╔═══██╗██╔══██╗██║╚══██╔══╝╚══██╔══╝██╔═══██╗██╔══██╗██╔══██╗██╔════╝████╗  ██║╚══██╔══╝
@@ -172,6 +150,30 @@ services:
         - TORRENTING_PORT=6881
       healthcheck:
         start_period: 15s
+      env_file:
+        - '.env'
+      networks:
+        - arrnet
+
+    jellyseerr:
+      image: fallenbagel/jellyseerr:latest
+      container_name: jellyseerr
+      restart: unless-stopped
+      ports:
+        - 5055:5055
+      env_file:
+        - '.env'
+      volumes:
+        - ${ARRPATH}jellyseerr/config:/app/config
+      networks:
+        - arrnet
+    
+    flaresolverr:
+      image: ghcr.io/flaresolverr/flaresolverr:latest
+      container_name: flashsolver
+      restart: unless-stopped
+      ports:
+        - 8191:8191
       env_file:
         - '.env'
       networks:
