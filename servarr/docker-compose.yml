@@ -136,21 +136,6 @@ services:
       networks:
         - arrnet
 
-    readarr:
-      image: linuxserver/readarr:latest
-      container_name: readarr
-      restart: unless-stopped
-      ports:
-        - 8787:8787
-      volumes:
-        - ${ARRPATH}Readarr/config:/config
-        - ${ARRPATH}Readarr/books:/books
-        - ${ARRPATH}Downloads:/downloads
-      env_file:
-        - '.env'
-      networks:
-        - arrnet
-
   # ██╗  ██╗ ██████╗ ███╗   ███╗ █████╗ ██████╗ ██████╗ 
   # ██║  ██║██╔═══██╗████╗ ████║██╔══██╗██╔══██╗██╔══██╗
   # ███████║██║   ██║██╔████╔██║███████║██████╔╝██████╔╝
