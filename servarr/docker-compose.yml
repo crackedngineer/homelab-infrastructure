@@ -187,7 +187,7 @@ services:
         - "traefik.enable=true"
         - "traefik.http.routers.homarr.rule=Host(`homarr.${DOMAIN}`)"
         - "traefik.http.routers.homarr.entrypoints=web"
-        - "traefik.http.services.homarr.loadbalancer.server.port=8989"
+        - "traefik.http.services.homarr.loadbalancer.server.port=7575"
       volumes:
         - ${ARRPATH}Homarr/configs:/app/data/configs
         - ${ARRPATH}Homarr/icons:/app/public/icons
