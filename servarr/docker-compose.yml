@@ -3,23 +3,38 @@ networks:
     driver: bridge
 
 services:
-  # traefik:
-  #   image: traefik:latest
-  #   container_name: traefik
-  #   restart: unless-stopped
-  #   command:
-  #     - "--api.insecure=true"
-  #     - "--providers.docker=true"
-  #     - "--entrypoints.web.address=:80"
-  #     - "--entrypoints.websecure.address=:443"
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - ./traefik.yml:/traefik.yml
-  #   networks:
-  #     - arrnet
+    traefik:
+      image: traefik:latest
+      container_name: traefik
+      restart: unless-stopped
+      command:
+        - "--providers.docker=true"
+        - "--providers.docker.exposedbydefault=false"
+        - "--entrypoints.web.address=:80"
+        - "--entrypoints.websecure.address=:443"
+        - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+        - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+        - "--certificatesresolvers.myresolver.acme.email=${EMAIL}"
+        - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+        - "--api.dashboard=true"                       # enable dashboard
+        - "--api.insecure=false"                       # don't expose on insecure port
+      ports:
+        - "80:80"
+        - "443:443"
+      env_file:
+        - '.env'
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)"
+        - "traefik.http.routers.traefik.entrypoints=websecure"
+        - "traefik.http.routers.traefik.tls.certresolver=myresolver"
+        - "traefik.http.routers.traefik.service=api@internal"
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        # - ./traefik.yml:/traefik.yml
+        - ${ARRPATH}traefik/letsencrypt:/letsencrypt
+      networks:
+        - arrnet
 
 
   # ██████╗ ██████╗  ██████╗ ██╗    ██╗██╗      █████╗ ██████╗ ██████╗ 
@@ -33,12 +48,18 @@ services:
       image: linuxserver/prowlarr:latest
       container_name: prowlarr
       hostname: prowlarr
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN}`)"
+        - "traefik.http.routers.prowlarr.entrypoints=websecure"
+        - "traefik.http.routers.prowlarr.tls.certresolver=myresolver"
+        - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
       volumes:
         - ${ARRPATH}Prowlarr/config:/config
         - ${ARRPATH}Prowlarr/backup:/data/Backup
         - ${ARRPATH}Downloads:/downloads
-      ports:
-        - 9696:9696
+      # ports:
+      #   - 9696:9696
       dns:
         - 8.8.8.8
         - 1.1.1.1
@@ -59,13 +80,19 @@ services:
       image: linuxserver/sonarr:latest
       container_name: sonarr
       hostname: sonarr
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.sonarr.rule=Host(`sonarr.${DOMAIN}`)"
+        - "traefik.http.routers.sonarr.entrypoints=websecure"
+        - "traefik.http.routers.sonarr.tls.certresolver=myresolver"
+        - "traefik.http.services.sonarr.loadbalancer.server.port=8989"
       volumes:
         - ${ARRPATH}Sonarr/config:/config
         - ${ARRPATH}Sonarr/backup:/data/Backup
         - ${ARRPATH}Sonarr/tvshows:/data/tvshows
         - ${ARRPATH}Downloads:/downloads
-      ports:
-        - 8989:8989
+      # ports:
+      #   - 8989:8989
       restart: unless-stopped
       env_file:
         - '.env'
@@ -83,13 +110,19 @@ services:
       image: linuxserver/radarr:latest
       container_name: radarr
       hostname: radarr
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.radarr.rule=Host(`radarr.${DOMAIN}`)"
+        - "traefik.http.routers.radarr.entrypoints=websecure"
+        - "traefik.http.routers.radarr.tls.certresolver=myresolver"
+        - "traefik.http.services.radarr.loadbalancer.server.port=7878"
       volumes:
         - ${ARRPATH}Radarr/config:/config
         - ${ARRPATH}Radarr/movies:/data/movies
         - ${ARRPATH}Radarr/backup:/data/Backup
         - ${ARRPATH}Downloads:/downloads
-      ports:
-        - 7878:7878
+      # ports:
+      #   - 7878:7878
       restart: unless-stopped
       env_file:
         - '.env'
@@ -108,12 +141,18 @@ services:
       image: linuxserver/lidarr:latest
       container_name: lidarr
       hostname: lidarr
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.lidarr.rule=Host(`lidarr.${DOMAIN}`)"
+        - "traefik.http.routers.lidarr.entrypoints=websecure"
+        - "traefik.http.routers.lidarr.tls.certresolver=myresolver"
+        - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
       volumes:
         - ${ARRPATH}Lidarr/config:/config
         - ${ARRPATH}Lidarr/music:/data/musicfolder
         - ${ARRPATH}Downloads:/downloads
-      ports:
-        - 8686:8686
+      # ports:
+      #   - 8686:8686
       restart: unless-stopped
       env_file:
         - '.env'
@@ -123,9 +162,16 @@ services:
     bazaarr:
       image: linuxserver/bazarr:latest
       container_name: bazarr
+      hostname: bazarr
       restart: unless-stopped
-      ports:
-        - 6767:6767
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.bazarr.rule=Host(`bazarr.${DOMAIN}`)"
+        - "traefik.http.routers.bazarr.entrypoints=websecure"
+        - "traefik.http.routers.bazarr.tls.certresolver=myresolver"
+        - "traefik.http.services.bazarr.loadbalancer.server.port=6767"
+      # ports:
+      #   - 6767:6767
       volumes:
         - ${ARRPATH}Bazarr/config:/config
         - ${ARRPATH}Downloads:/downloads
@@ -144,15 +190,22 @@ services:
   # ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
   
     homarr:
+      hostname: homarr
       container_name: homarr
       image: ghcr.io/ajnart/homarr:latest
       restart: unless-stopped
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.homarr.rule=Host(`homarr.${DOMAIN}`)"
+        - "traefik.http.routers.homarr.entrypoints=websecure"
+        - "traefik.http.routers.homarr.tls.certresolver=myresolver"
+        - "traefik.http.services.homarr.loadbalancer.server.port=8989"
       volumes:
         - ${ARRPATH}Homarr/configs:/app/data/configs
         - ${ARRPATH}Homarr/icons:/app/public/icons
         - ${ARRPATH}Homarr/data:/data
-      ports:
-        - '7575:7575'
+      # ports:
+      #   - 7575:7575
       env_file:
         - '.env'
       networks:
@@ -172,11 +225,16 @@ services:
       restart: unless-stopped
       labels:
         - "com.centurylinklabs.watchtower.enable=false"
+        - "traefik.enable=true"
+        - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.${DOMAIN}`)"
+        - "traefik.http.routers.qbittorrent.entrypoints=websecure" 
+        - "traefik.http.routers.qbittorrent.tls.certresolver=myresolver"
+        - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
       volumes:
         - ${ARRPATH}qbittorrent/config:/config
         - ${ARRPATH}Downloads:/downloads
       ports:
-        - 8080:8080
+        # - 8080:8080
         - 6881:6881
         - 6881:6881/udp
       environment:
@@ -192,9 +250,16 @@ services:
     jellyseerr:
       image: fallenbagel/jellyseerr:latest
       container_name: jellyseerr
+      hostname: jellyseerr
       restart: unless-stopped
-      ports:
-        - 5055:5055
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.${DOMAIN}`)"
+        - "traefik.http.routers.jellyseerr.entrypoints=websecure"
+        - "traefik.http.routers.jellyseerr.tls.certresolver=myresolver"
+        - "traefik.http.services.jellyseerr.loadbalancer.server.port=5055"
+      # ports:
+      #   - 5055:5055
       env_file:
         - '.env'
       volumes:
@@ -208,9 +273,16 @@ services:
     flaresolverr:
       image: ghcr.io/flaresolverr/flaresolverr:latest
       container_name: flaresolverr
+      hostname: flaresolverr
       restart: unless-stopped
-      ports:
-        - 8191:8191
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.flaresolverr.rule=Host(`flaresolverr.${DOMAIN}`)"
+        - "traefik.http.routers.flaresolverr.entrypoints=websecure"
+        - "traefik.http.routers.flaresolverr.tls.certresolver=myresolver"
+        - "traefik.http.services.flaresolverr.loadbalancer.server.port=8191"
+      # ports:
+      #   - 8191:8191
       env_file:
         - '.env'
       networks:
@@ -219,11 +291,18 @@ services:
     nzbget:
       image: linuxserver/nzbget
       container_name: nzbget
+      hostname: nzbget
       restart: unless-stopped
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.nzbget.rule=Host(`nzbget.${DOMAIN}`)"
+        - "traefik.http.routers.nzbget.entrypoints=websecure"
+        - "traefik.http.routers.nzbget.tls.certresolver=myresolver"
+        - "traefik.http.services.nzbget.loadbalancer.server.port=6789"
       networks:
       - arrnet
-      ports:
-        - 6789:6789
+      # ports:
+      #   - 6789:6789
       volumes:
         - ${ARRPATH}nzbget/config:/config
         - ${ARRPATH}Downloads:/downloads
