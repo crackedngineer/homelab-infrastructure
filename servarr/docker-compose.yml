@@ -2,7 +2,25 @@ networks:
   arrnet:
     driver: bridge
 
-services:       
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: unless-stopped
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.yml:/traefik.yml
+    networks:
+      - arrnet
+
 
   # ██████╗ ██████╗  ██████╗ ██╗    ██╗██╗      █████╗ ██████╗ ██████╗ 
   # ██╔══██╗██╔══██╗██╔═══██╗██║    ██║██║     ██╔══██╗██╔══██╗██╔══██╗
@@ -102,6 +120,37 @@ services:
       networks:
         - arrnet
 
+    bazaarr:
+      image: linuxserver/bazarr:latest
+      container_name: bazarr
+      restart: unless-stopped
+      ports:
+        - 6767:6767
+      volumes:
+        - ${ARRPATH}Bazarr/config:/config
+        - ${ARRPATH}Downloads:/downloads
+        - ${ARRPATH}Sonarr/tvshows:/tvshows
+        - ${ARRPATH}Radarr/movies:/movies
+      env_file:
+        - '.env'
+      networks:
+        - arrnet
+
+    readarr:
+      image: ghcr.io/benphelps/readarr:latest
+      container_name: readarr
+      restart: unless-stopped
+      ports:
+        - 8787:8787
+      volumes:
+        - ${ARRPATH}Readarr/config:/config
+        - ${ARRPATH}Readarr/books:/books
+        - ${ARRPATH}Downloads:/downloads
+      env_file:
+        - '.env'
+      networks:
+        - arrnet
+
   # ██╗  ██╗ ██████╗ ███╗   ███╗ █████╗ ██████╗ ██████╗ 
   # ██║  ██║██╔═══██╗████╗ ████║██╔══██╗██╔══██╗██╔══██╗
   # ███████║██║   ██║██╔████╔██║███████║██████╔╝██████╔╝
@@ -181,3 +230,17 @@ services:
         - '.env'
       networks:
         - arrnet
+
+    nzbget:
+      image: linuxserver/nzbget
+      container_name: nzbget
+      restart: unless-stopped
+      networks:
+      - arrnet
+      ports:
+        - 6789:6789
+      volumes:
+        - ${ARRPATH}nzbget/config:/config
+        - ${ARRPATH}Downloads:/downloads
+      env_file:
+        - '.env'
