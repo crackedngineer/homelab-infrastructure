@@ -1,6 +1,7 @@
 networks:
   arrnet:
     driver: bridge
+    external: true
 
 services:       
 
@@ -167,6 +168,9 @@ services:
         - ${ARRPATH}jellyseerr/config:/app/config
       networks:
         - arrnet
+      dns:
+      - 1.1.1.1  # Cloudflare DNS
+      - 8.8.8.8  # Google DNS
     
     flaresolverr:
       image: ghcr.io/flaresolverr/flaresolverr:latest
