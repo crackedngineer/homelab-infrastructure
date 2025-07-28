@@ -1,7 +1,6 @@
 networks:
   arrnet:
     driver: bridge
-    external: true
 
 services:       
 
