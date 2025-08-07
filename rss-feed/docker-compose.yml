@@ -1,0 +1,34 @@
+services:
+
+  freshrss:
+    image: freshrss/freshrss
+    container_name: freshrss
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Kolkata
+    volumes:
+      - freshrss_data:/var/www/FreshRSS/data
+      - freshrss_extensions:/var/www/FreshRSS/extensions
+    ports:
+      - "8080:80"
+
+  fulltextrss:
+    image: heussd/fivefilters-full-text-rss
+    container_name: fulltextrss
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=3600  # every hour
+
+volumes:
+  freshrss_data:
+  freshrss_extensions:
