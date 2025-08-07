@@ -17,7 +17,7 @@ services:
     container_name: fulltextrss
     restart: unless-stopped
     ports:
-      - "8075:80"
+      - "8076:80"
 
   watchtower:
     image: containrrr/watchtower
