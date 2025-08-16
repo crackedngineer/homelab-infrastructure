@@ -37,6 +37,6 @@ services:
       # ND_REVERSEPROXYWHITELIST: "127.0.0.1/32"
       
     volumes:
-      - ./data:/data
+      - /mnt/navidrome/data:/data
       - /mnt/navidrome:/music:ro  # Mount your music collection (read-only)
       # - /path/to/your/music:/music:ro  # Replace with actual path to your music
