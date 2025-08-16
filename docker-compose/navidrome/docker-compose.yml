@@ -1,0 +1,42 @@
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    restart: unless-stopped
+    user: 1000:1000  # Change to your user:group ID
+    ports:
+      - "4533:4533"
+    environment:
+      # Required
+      ND_SCANSCHEDULE: 1h
+      ND_LOGLEVEL: info  
+      ND_SESSIONTIMEOUT: 24h
+      ND_BASEURL: ""
+      
+      # Optional - Uncomment and modify as needed
+      # ND_MUSICFOLDER: /music
+      # ND_DATAFOLDER: /data
+      # ND_CACHEFOLDER: /data/cache
+      # ND_COVERFOLDER: /data/covers
+      # ND_PLAYLISTSPATH: /data/playlists
+      
+      # Authentication & Security
+      # ND_ENABLETRANSCODINGCONFIG: "true"
+      # ND_ENABLEDOWNLOADS: "true"
+      # ND_ENABLECOVERANIMATION: "true"
+      # ND_ENABLESTARRATING: "true"
+      # ND_ENABLEFAVOURITES: "true"
+      # ND_ENABLESHARING: "true"
+      
+      # Transcoding
+      # ND_TRANSCODINGCACHESIZE: 100MB
+      # ND_IMAGECACHESIZE: 100MB
+      
+      # Advanced
+      # ND_REVERSEPROXYUSERHEADER: "Remote-User"
+      # ND_REVERSEPROXYWHITELIST: "127.0.0.1/32"
+      
+    volumes:
+      - ./data:/data
+      - /mnt/navidrome:/music:ro  # Mount your music collection (read-only)
+      # - /path/to/your/music:/music:ro  # Replace with actual path to your music
