@@ -13,8 +13,8 @@ services:
       - 80:80 
       - 8080:8080
     environment: 
-      - APACHE_PORT=11001 
-      - APACHE_IP_BINDING=0.0.0.0
+      # - APACHE_PORT=11001 
+      # - APACHE_IP_BINDING=0.0.0.0
       - SKIP_DOMAIN_VALIDATION=true
       
 
