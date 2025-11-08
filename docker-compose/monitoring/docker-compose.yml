@@ -4,7 +4,7 @@ services:
     container_name: pihole-exporter
     restart: always
     environment:
-      PIHOLE_PROTOCOL: https
+      PIHOLE_PROTOCOL: http
       PIHOLE_HOSTNAME: ${PIHOLE_HOSTNAME}
       PIHOLE_PASSWORD: ${PIHOLE_PASSWORD}
       PORT: 9617
