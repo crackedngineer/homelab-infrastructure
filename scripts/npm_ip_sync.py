@@ -83,7 +83,9 @@ class NpmProvider(object):
 if __name__ == "__main__":
     lxc_ips = {}
 
-    npm_obj = NpmProvider(host=NPM_HOST, user=NPM_USER, password=NPM_PASSWORD)
+    npm_obj = NpmProvider(
+        host=str(NPM_HOST), user=str(NPM_USER), password=str(NPM_PASSWORD)
+    )
 
     for node in proxmox.nodes.get() or []:
         node_name = node["node"]
@@ -99,6 +101,9 @@ if __name__ == "__main__":
     npm_proxy = npm_obj.get_all_proxy()
     for proxy in npm_proxy:
         for domain, lxc_ip in lxc_ips.items():
-            if f"{domain}.local.oderna.in" in proxy["domain_names"] and lxc_ip != proxy["forward_host"]:
+            if (
+                f"{domain}.local.oderna.in" in proxy["domain_names"]
+                and lxc_ip != proxy["forward_host"]
+            ):
                 npm_obj.update_proxy_ip(proxy, lxc_ip)
                 print(f"Forwarded {domain} to {lxc_ip}")
