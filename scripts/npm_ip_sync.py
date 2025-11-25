@@ -1,5 +1,10 @@
 """
+export $(cat .env | xargs)
+
 pip install -qU proxmoxer
+
+For WSL
+pip install -qU proxmoxer --break-system-packages
 """
 
 import os
@@ -7,15 +12,19 @@ import requests
 from proxmoxer import ProxmoxAPI
 
 PROXMOX_HOST = os.getenv("PROXMOX_HOST")
-PROXMOX_USER = os.getenv("PROXMOX_USER")
-PROXMOX_PASSWORD = os.getenv("PROXMOX_PASSWORD")
+# PROXMOX_HOST = "100.81.69.28"
+PROXMOX_HOST = str(PROXMOX_HOST).strip()
 
-NPM_HOST = os.getenv("NPM_HOST")
-NPM_USER = os.getenv("NPM_USER")
-NPM_PASSWORD = os.getenv("NPM_PASSWORD")
+PROXMOX_USER = str(os.getenv("PROXMOX_USER", "")).strip()
+PROXMOX_PASSWORD = str(os.getenv("PROXMOX_PASSWORD", "")).strip()
+
+NPM_HOST = str(os.getenv("NPM_HOST", "")).strip()
+NPM_USER = str(os.getenv("NPM_USER", "")).strip()
+NPM_PASSWORD = str(os.getenv("NPM_PASSWORD", "")).strip()
+
 
 proxmox = ProxmoxAPI(
-    host=PROXMOX_HOST, user=PROXMOX_USER, password=PROXMOX_PASSWORD, verify_ssl=False
+    host=str(PROXMOX_HOST), user=PROXMOX_USER, password=PROXMOX_PASSWORD, verify_ssl=False
 )
 
 LXC_NPM_DOMAIN_MAP = {
