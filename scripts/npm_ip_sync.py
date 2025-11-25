@@ -11,10 +11,7 @@ import os
 import requests
 from proxmoxer import ProxmoxAPI
 
-PROXMOX_HOST = os.getenv("PROXMOX_HOST")
-# PROXMOX_HOST = "100.81.69.28"
-PROXMOX_HOST = str(PROXMOX_HOST).strip()
-
+PROXMOX_HOST = str(os.getenv("PROXMOX_HOST")).strip()
 PROXMOX_USER = str(os.getenv("PROXMOX_USER", "")).strip()
 PROXMOX_PASSWORD = str(os.getenv("PROXMOX_PASSWORD", "")).strip()
 
