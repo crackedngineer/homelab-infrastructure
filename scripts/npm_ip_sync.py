@@ -63,12 +63,13 @@ class NpmProvider(object):
                 "identity": user,
                 "secret": password,
             },
+            verify=False
         )
         return response.json()["token"]
 
     def get_all_proxy(self) -> dict:
         response = requests.get(
-            f"{self.host}/api/nginx/proxy-hosts/", headers=self.headers
+            f"{self.host}/api/nginx/proxy-hosts/", headers=self.headers, verify=False
         )
         if not response.ok:
             raise Exception("Failed to fetch proxy")
@@ -80,6 +81,7 @@ class NpmProvider(object):
             f"{self.host}/api/nginx/proxy-hosts/{proxy["id"]}",
             headers=self.headers,
             data=payload,
+            verify=False
         )
         if not response.ok:
             raise Exception("Failed to update proxy")
@@ -108,7 +110,7 @@ if __name__ == "__main__":
     for proxy in npm_proxy:
         for domain, lxc_ip in lxc_ips.items():
             if (
-                f"{domain}.local.oderna.in" in proxy["domain_names"]
+                f"{domain}.ultimatehomelab.dynv6.net" in proxy["domain_names"]
                 and lxc_ip != proxy["forward_host"]
             ):
                 npm_obj.update_proxy_ip(proxy, lxc_ip)
