@@ -110,7 +110,7 @@ if __name__ == "__main__":
     for proxy in npm_proxy:
         for domain, lxc_ip in lxc_ips.items():
             if (
-                f"{domain}.ultimatehomelab.dynv6.net" in proxy["domain_names"]
+                f"{domain}.home.lan" in proxy["domain_names"]
                 and lxc_ip != proxy["forward_host"]
             ):
                 npm_obj.update_proxy_ip(proxy, lxc_ip)
