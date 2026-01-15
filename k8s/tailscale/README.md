@@ -44,6 +44,8 @@ helm uninstall tailscale -n default
 tailscale configure kubeconfig tailscale-operator
 ```
 
+## Next Steps
+- Multi cluster setup https://tailscale.com/kb/1486/kubernetes-operator-multi-cluster-argocd
 
 # FAQ
 
