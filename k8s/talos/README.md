@@ -3,6 +3,9 @@
 ## System Requirements
 https://docs.siderolabs.com/talos/v1.12/getting-started/system-requirements
 
+## Reference 
+https://docs.siderolabs.com/talos/v1.12/getting-started/getting-started
+
 ## Load Env
 ```
 export $(grep -v '^#' .env | xargs)
@@ -34,6 +37,11 @@ talosctl dmesg
 ## Generate Kubeconfig
 ```
 talosctl kubeconfig .
+```
+or
+```
+talosctl kubeconfig alternative-kubeconfig --nodes $CONTROL_PLANE_IP --talosconfig=./talosconfig
+export KUBECONFIG=./alternative-kubeconfig
 ```
 
 ## check health of node
