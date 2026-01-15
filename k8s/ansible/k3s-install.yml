@@ -1,0 +1,158 @@
+---
+- name: Prepare all nodes
+  hosts: k3s_cluster
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install required packages
+      apt:
+        name:
+          - curl
+          - ca-certificates
+          - apt-transport-https
+        state: present
+
+    - name: Disable swap
+      shell: swapoff -a
+      when: ansible_swaptotal_mb > 0
+
+    - name: Remove swap from fstab
+      lineinfile:
+        path: /etc/fstab
+        regexp: '^.*swap.*$'
+        state: absent
+
+    - name: Enable IPv4 forwarding
+      sysctl:
+        name: net.ipv4.ip_forward
+        value: '1'
+        sysctl_set: yes
+        state: present
+        reload: yes
+
+    - name: Enable IPv6 forwarding
+      sysctl:
+        name: net.ipv6.conf.all.forwarding
+        value: '1'
+        sysctl_set: yes
+        state: present
+        reload: yes
+
+- name: Install K3s on first control plane node
+  hosts: control_plane[0]
+  become: yes
+  vars:
+    k3s_version: v1.28.5+k3s1
+    k3s_token: "{{ lookup('password', '/dev/null length=32 chars=ascii_letters,digits') }}"
+  tasks:
+    - name: Download K3s install script
+      get_url:
+        url: https://get.k3s.io
+        dest: /tmp/k3s-install.sh
+        mode: '0755'
+
+    - name: Install K3s server
+      shell: |
+        INSTALL_K3S_VERSION={{ k3s_version }} \
+        K3S_TOKEN={{ k3s_token }} \
+        sh /tmp/k3s-install.sh server \
+          --cluster-init \
+          --tls-san={{ ansible_default_ipv4.address }} \
+          --disable=traefik
+      args:
+        creates: /usr/local/bin/k3s
+
+    - name: Wait for K3s to be ready
+      wait_for:
+        path: /etc/rancher/k3s/k3s.yaml
+        timeout: 300
+
+    - name: Get K3s token
+      slurp:
+        src: /var/lib/rancher/k3s/server/node-token
+      register: k3s_token_file
+
+    - name: Save K3s token
+      set_fact:
+        k3s_cluster_token: "{{ k3s_token_file.content | b64decode | trim }}"
+
+    - name: Save control plane IP
+      set_fact:
+        control_plane_ip: "{{ ansible_default_ipv4.address }}"
+
+    - name: Get kubeconfig
+      fetch:
+        src: /etc/rancher/k3s/k3s.yaml
+        dest: ./kubeconfig
+        flat: yes
+
+- name: Install K3s on additional control plane nodes
+  hosts: control_plane[1:]
+  become: yes
+  vars:
+    k3s_version: v1.28.5+k3s1
+  tasks:
+    - name: Download K3s install script
+      get_url:
+        url: https://get.k3s.io
+        dest: /tmp/k3s-install.sh
+        mode: '0755'
+
+    - name: Install K3s server
+      shell: |
+        INSTALL_K3S_VERSION={{ k3s_version }} \
+        K3S_TOKEN={{ hostvars[groups['control_plane'][0]]['k3s_cluster_token'] }} \
+        sh /tmp/k3s-install.sh server \
+          --server https://{{ hostvars[groups['control_plane'][0]]['control_plane_ip'] }}:6443 \
+          --tls-san={{ ansible_default_ipv4.address }} \
+          --disable=traefik
+      args:
+        creates: /usr/local/bin/k3s
+
+    - name: Wait for K3s to be ready
+      wait_for:
+        path: /etc/rancher/k3s/k3s.yaml
+        timeout: 300
+
+- name: Install K3s on worker nodes
+  hosts: workers
+  become: yes
+  vars:
+    k3s_version: v1.28.5+k3s1
+  tasks:
+    - name: Download K3s install script
+      get_url:
+        url: https://get.k3s.io
+        dest: /tmp/k3s-install.sh
+        mode: '0755'
+
+    - name: Install K3s agent
+      shell: |
+        INSTALL_K3S_VERSION={{ k3s_version }} \
+        K3S_TOKEN={{ hostvars[groups['control_plane'][0]]['k3s_cluster_token'] }} \
+        K3S_URL=https://{{ hostvars[groups['control_plane'][0]]['control_plane_ip'] }}:6443 \
+        sh /tmp/k3s-install.sh agent
+      args:
+        creates: /usr/local/bin/k3s
+
+    - name: Wait for K3s agent to be ready
+      wait_for:
+        port: 10250
+        timeout: 300
+
+- name: Verify cluster
+  hosts: control_plane[0]
+  become: yes
+  tasks:
+    - name: Get cluster nodes
+      command: kubectl get nodes
+      register: nodes_output
+      changed_when: false
+
+    - name: Display nodes
+      debug:
+        msg: "{{ nodes_output.stdout_lines }}"
