@@ -1,5 +1,7 @@
 # Tailscale helm install
 
+Reference https://youtu.be/XbTUWZt5ljQ?si=eSF2vSfwo69W-b4H
+
 ## Create new helm folder
 ```
 helm create tailscale
