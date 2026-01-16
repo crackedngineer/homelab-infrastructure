@@ -5,3 +5,6 @@ tailscale-operator:
     clientSecret: ""
   apiServerProxyConfig:
     mode: true
+
+traefik:
+  enabled: true

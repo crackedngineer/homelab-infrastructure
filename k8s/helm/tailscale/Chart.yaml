@@ -29,3 +29,8 @@ dependencies:
     condition: tailscale-operator.enabled
     version: 1.92.5
     repository: "https://pkgs.tailscale.com/helmcharts"
+
+  - name: traefik
+    condition: traefik.enabled
+    version: 38.0.2
+    repository: "https://traefik.github.io/charts"
