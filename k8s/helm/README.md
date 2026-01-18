@@ -46,6 +46,18 @@ helm uninstall tailscale -n default
 tailscale configure kubeconfig tailscale-operator
 ```
 
+# Install Traefik
+
+```
+helm upgrade --install traefik .   --namespace tailscale   --create-namespace
+```
+
+# Install MetalLB
+
+```
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.8/config/manifests/metallb-native.yaml
+```
+
 ## Next Steps
 - Multi cluster setup https://tailscale.com/kb/1486/kubernetes-operator-multi-cluster-argocd
 
