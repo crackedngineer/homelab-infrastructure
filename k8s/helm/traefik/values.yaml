@@ -1,0 +1,4 @@
+traefik:
+  enabled: true
+  dashboard:
+    enabled: true
