@@ -1,4 +1,5 @@
 traefik:
   enabled: true
-  dashboard:
-    enabled: true
+  ingressRoute:
+    dashboard:
+      enabled: true
