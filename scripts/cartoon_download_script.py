@@ -108,75 +108,75 @@ def clean(text):
 def run():
     print("Running cartoon download script...")
     # listing_url = "https://onlyjusticeleague.blogspot.com/search/label/Justice%20League%20Season%202"
-    # listing_url = "https://onlyjusticeleague.blogspot.com/search/label/Justice%20League%20Season%202?max-results=40&start=0"
+    listing_url = "https://onlyjusticeleague.blogspot.com/search/label/Justice%20League%20Season%201?max-results=40&start=0"
 
-    # listing_url = "https://onlyjusticeleague.blogspot.com/search/label/Justice%20League%20Unlimited%20Season%203"
-    listing_url = "https://onlyjusticeleague.blogspot.com/search/label/Young%20Justice%20Season%201?max-results=40&start=0"
+    # listing_url = "https://onlyjusticeleague.blogspot.com/search/label/Justice%20League%20Unlimited%20Season%201?max-results=40&start=0"
+    # listing_url = "https://onlyjusticeleague.blogspot.com/search/label/Young%20Justice%20Season%201?max-results=40&start=0"
     # listing_url = "https://onlyjusticeleague.blogspot.com/search/label/Young%20Justice%20Season%202"
-    SHOW_YEAR = "2006"
+    SHOW_YEAR = "2003"
 
     # Scrape the listing page for cartoon details
-    # cartoons = scrape_blogger_listing(listing_url)
-    # for cartoon in cartoons:
-    #     title = cartoon["title"]
-    #     video_url = cartoon["iframe_src"].replace("draft.blogger.com", "www.blogger.com")
+    cartoons = scrape_blogger_listing(listing_url)
+    for cartoon in cartoons:
+        title = cartoon["title"]
+        video_url = cartoon["iframe_src"].replace("draft.blogger.com", "www.blogger.com")
 
-    #     # Example title:
-    #     # "Series Name A (2010) Season 02 Episode 26: Starcrossed: Part III"
+        # Example title:
+        # "Series Name A (2010) Season 02 Episode 26: Starcrossed: Part III"
 
-    #     # ── Extract show name ─────────────────────────────
-    #     show = re.split(r"\s+Season\s+\d+", title)[0].strip()
+        # ── Extract show name ─────────────────────────────
+        show = re.split(r"\s+Season\s+\d+", title)[0].strip()
 
-    #     # ── Extract season & episode ──────────────────────
-    #     season_match = re.search(r"Season\s+(\d+)", title)
-    #     season = season_match.group(1).zfill(2) if season_match else "00"
+        # ── Extract season & episode ──────────────────────
+        season_match = re.search(r"Season\s+(\d+)", title)
+        season = season_match.group(1).zfill(2) if season_match else "00"
 
-    #     episode_match = re.search(r"Episode\s+(\d+)", title)
-    #     episode = episode_match.group(1).zfill(2) if episode_match else "00"
+        episode_match = re.search(r"Episode\s+(\d+)", title)
+        episode = episode_match.group(1).zfill(2) if episode_match else "00"
 
-    #     # ── Extract episode title ─────────────────────────
-    #     episode_title_match = re.search(r"Episode\s+\d+:\s*(.+)", title)
-    #     episode_title = (
-    #         episode_title_match.group(1) if episode_title_match else "Unknown"
-    #     )
+        # ── Extract episode title ─────────────────────────
+        episode_title_match = re.search(r"Episode\s+\d+:\s*(.+)", title)
+        episode_title = (
+            episode_title_match.group(1) if episode_title_match else "Unknown"
+        )
 
-    #     # Further processing like downloading can be added here.
+        # Further processing like downloading can be added here.
 
-    #     # save the data inside data folder
-    #     show_folder = clean(f"{show} ({SHOW_YEAR})")
-    #     episode_title = clean(episode_title)
+        # save the data inside data folder
+        show_folder = clean(f"{show} ({SHOW_YEAR})")
+        episode_title = clean(episode_title)
 
-    #     # ── Build folder structure ────────────────────────────────
-    #     base_dir = os.path.join(os.getcwd(), "data", show_folder, f"Season {season}")
-    #     # folder_path = os.path.join(base_dir, f"Episode {episode} - {episode_title}")
-    #     os.makedirs(base_dir, exist_ok=True)
-    #     # ── Final filename ────────────────────────────────────────
-    #     output_template = f"{show} S{season}E{episode} - {episode_title}.%(ext)s"
+        # ── Build folder structure ────────────────────────────────
+        base_dir = os.path.join(os.getcwd(), "data", show_folder, f"Season {season}")
+        # folder_path = os.path.join(base_dir, f"Episode {episode} - {episode_title}")
+        os.makedirs(base_dir, exist_ok=True)
+        # ── Final filename ────────────────────────────────────────
+        output_template = f"{show} S{season}E{episode} - {episode_title}.%(ext)s"
 
-    #     # ── yt-dlp command ────────────────────────────────────────
-    #     command = [
-    #         "yt-dlp",
-    #         "-f",
-    #         "best",
-    #         "--restrict-filenames",
-    #         "-o",
-    #         os.path.join(base_dir, output_template),
-    #         video_url,
-    #     ]
-    #     subprocess.run(command)
-    #     # break  # remove this break to download all episodes
+        # ── yt-dlp command ────────────────────────────────────────
+        command = [
+            "yt-dlp",
+            "-f",
+            "best",
+            "--restrict-filenames",
+            "-o",
+            os.path.join(base_dir, output_template),
+            video_url,
+        ]
+        subprocess.run(command)
+        # break  # remove this break to download all episodes
 
     # push the data to FTP server
-    FTP_HOST = "192.168.31.75"
-    FTP_USER = "filezilla"
-    FTP_PASS = "filezilla2000"
+    # FTP_HOST = "192.168.31.75"
+    # FTP_USER = "filezilla"
+    # FTP_PASS = "filezilla2000"
 
-    LOCAL_FOLDER = os.path.join(os.getcwd(), "data")
-    REMOTE_FOLDER = "Animated Series"
+    # LOCAL_FOLDER = os.path.join(os.getcwd(), "data", "Justice League Unlimited (2006)")
+    # REMOTE_FOLDER = os.path.join("/mnt/media", "Animated Series", "Justice League Unlimited (2006)")
 
-    with FTP(FTP_HOST) as ftp:
-        ftp.login(FTP_USER, FTP_PASS)
-        upload_folder(ftp, LOCAL_FOLDER, REMOTE_FOLDER)
+    # with FTP(FTP_HOST) as ftp:
+    #     ftp.login(FTP_USER, FTP_PASS)
+    #     upload_folder(ftp, LOCAL_FOLDER, REMOTE_FOLDER)
 
 
 if __name__ == "__main__":
