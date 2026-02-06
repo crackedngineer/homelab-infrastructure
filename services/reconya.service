@@ -10,7 +10,6 @@ ExecStart=/usr/bin/make start
 ExecStop=/usr/bin/make stop
 Restart=on-failure
 RestartSec=3
-User=root
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 [Install]
