@@ -1,0 +1,14 @@
+[Unit]
+Description=Reconya Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/reconya
+ExecStart=/usr/bin/make start
+ExecStop=/usr/bin/make stop
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
