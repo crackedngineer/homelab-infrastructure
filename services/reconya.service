@@ -6,11 +6,11 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=/opt/reconya
-ExecStart=/usr/bin/make start
+ExecStart=/usr/bin/make start-dev
 ExecStop=/usr/bin/make stop
 Restart=on-failure
 RestartSec=3
-Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/go/bin
 
 [Install]
 WantedBy=multi-user.target

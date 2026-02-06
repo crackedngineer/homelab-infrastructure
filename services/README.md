@@ -1,10 +1,16 @@
 https://syncbricks.com/proxmox-google-drive-integration-rclone-setup-guide/
 
-# Reconya
+# Reconya Installation
+
+```
+git clone https://github.com/Dyneteq/reconya.git /opt/reconya
+mv reconya.service /etc/systemd/system
+```
 
 Reload systemd
+```
 sudo systemctl daemon-reload
-
+```
 3) Start / Stop / Enable Reconya
 
 Start service:
