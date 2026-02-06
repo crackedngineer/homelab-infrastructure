@@ -37,4 +37,5 @@ sudo systemctl enable reconya
 Check status:
 ```
 sudo systemctl status reconya
+journalctl -u reconya --no-pager -n 50
 ```
