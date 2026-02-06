@@ -8,7 +8,9 @@ User=root
 WorkingDirectory=/opt/reconya
 ExecStart=/usr/bin/make start
 ExecStop=/usr/bin/make stop
-Restart=always
+Restart=on-failure
+RestartSec=3
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 [Install]
 WantedBy=multi-user.target
