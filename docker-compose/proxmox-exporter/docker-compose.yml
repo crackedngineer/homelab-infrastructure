@@ -1,0 +1,22 @@
+services:
+  # Proxmox Exporter
+  proxmox-exporter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: proxmox-exporter
+    restart: unless-stopped
+    ports:
+      - "9221:9221"
+    environment:
+      - PROXMOX_HOST=${PROXMOX_HOST}
+      - PROXMOX_USER=${PROXMOX_USER:-root@pam}
+      - PROXMOX_PASSWORD=${PROXMOX_PASSWORD}
+      - EXPORTER_PORT=9221
+      - SCRAPE_INTERVAL=60
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge
