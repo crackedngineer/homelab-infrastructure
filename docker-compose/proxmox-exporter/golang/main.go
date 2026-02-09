@@ -132,6 +132,7 @@ func NewProxmoxExporter(apiURL string, username string, password string) *Proxmo
 func main() {
 	HOST := os.Getenv("PROXMOX_HOST")
 	USERNAME := os.Getenv("PROXMOX_USER")
+	fmt.Printf("Using Proxmox user: %s\n", USERNAME)
 	PASSWORD := os.Getenv("PROXMOX_PASSWORD")
 	PORT := os.Getenv("EXPORTER_PORT")
 	if PORT == "" {
