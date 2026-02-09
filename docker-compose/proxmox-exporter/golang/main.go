@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	"context"
@@ -129,10 +130,22 @@ func NewProxmoxExporter(apiURL string, username string, password string) *Proxmo
 }
 
 func main() {
+	HOST := os.Getenv("PROXMOX_HOST")
+	USERNAME := os.Getenv("PROXMOX_USERNAME")
+	PASSWORD := os.Getenv("PROXMOX_PASSWORD")
+	PORT := os.Getenv("EXPORTER_PORT")
+	if PORT == "" {
+		PORT = "9100"
+	}
+
+	if HOST == "" || USERNAME == "" || PASSWORD == "" {
+		log.Fatal("Please set PROXMOX_HOST, PROXMOX_USERNAME, and PROXMOX_PASSWORD environment variables")
+	}
+
 	exporter := NewProxmoxExporter(
-		"https://192.168.31.249:8006/api2/json",
-		"root@pam",
-		"45subho2000N",
+		fmt.Sprintf("https://%s:8006/api2/json", HOST),
+		USERNAME,
+		PASSWORD,
 	)
 
 	// Register the exporter
@@ -140,6 +153,6 @@ func main() {
 
 	// Serve the metrics
 	http.Handle("/metrics", promhttp.Handler())
-	fmt.Println("Exporter running on :9100/metrics")
-	log.Fatal(http.ListenAndServe(":9100", nil))
+	fmt.Println("Exporter running on :" + PORT + "/metrics")
+	log.Fatal(http.ListenAndServe(":"+PORT, nil))
 }
