@@ -10,6 +10,7 @@ import (
 
 	"context"
 
+	"github.com/joho/godotenv"
 	"github.com/luthermonson/go-proxmox"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -130,6 +131,13 @@ func NewProxmoxExporter(apiURL string, username string, password string) *Proxmo
 }
 
 func main() {
+
+	// Load .env file if it exists
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	HOST := os.Getenv("PROXMOX_HOST")
 	USERNAME := os.Getenv("PROXMOX_USERNAME")
 	PASSWORD := os.Getenv("PROXMOX_PASSWORD")
