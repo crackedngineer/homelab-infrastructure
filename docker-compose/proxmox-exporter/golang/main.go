@@ -139,7 +139,6 @@ func main() {
 	}
 
 	if HOST == "" || USERNAME == "" || PASSWORD == "" {
-		log.Printf("HOST: %s, USERNAME: %s, PASSWORD: %s", HOST, USERNAME, PASSWORD)
 		log.Fatal("Please set PROXMOX_HOST, PROXMOX_USER, and PROXMOX_PASSWORD environment variables")
 	}
 
