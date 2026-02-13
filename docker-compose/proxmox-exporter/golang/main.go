@@ -129,18 +129,20 @@ func NewProxmoxExporter(apiURL string, username string, password string) *Proxmo
 	}
 }
 
-func main() {
-	HOST := os.Getenv("PROXMOX_HOST")
-	USERNAME := os.Getenv("PROXMOX_USER")
-	PASSWORD := os.Getenv("PROXMOX_PASSWORD")
-	PORT := os.Getenv("EXPORTER_PORT")
-	if PORT == "" {
-		PORT = "9100"
+func fetchEnvironmentVariable(key string, defaultValue string) string {
+	value := os.Getenv(key)
+	if value == "" {
+		log.Printf("Environment variable %s is not set, using default value: %s", key, defaultValue)
+		return defaultValue
 	}
+	return strings.TrimSpace(value)
+}
 
-	if HOST == "" || USERNAME == "" || PASSWORD == "" {
-		log.Fatal("Please set PROXMOX_HOST, PROXMOX_USER, and PROXMOX_PASSWORD environment variables")
-	}
+func main() {
+	HOST := fetchEnvironmentVariable("PROXMOX_HOST", "")
+	USERNAME := fetchEnvironmentVariable("PROXMOX_USER", "root@pam")
+	PASSWORD := fetchEnvironmentVariable("PROXMOX_PASSWORD", "")
+	PORT := fetchEnvironmentVariable("EXPORTER_PORT", "9100")
 
 	exporter := NewProxmoxExporter(
 		fmt.Sprintf("https://%s:8006/api2/json", HOST),
