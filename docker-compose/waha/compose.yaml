@@ -1,0 +1,11 @@
+services:
+  waha:
+    image: devlikeapro/waha
+    restart: unless-stopped
+    ports:
+      - "4100:3000"
+    volumes:
+      - waha_data:/app/data
+
+volumes:
+  waha_data:
