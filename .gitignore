@@ -43,3 +43,5 @@ terraform.rc
 data/*
 
 *.mp4
+# Added by code-review-graph
+.code-review-graph/
