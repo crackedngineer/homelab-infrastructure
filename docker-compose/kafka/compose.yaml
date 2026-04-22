@@ -38,6 +38,9 @@ services:
       retries: 5
       start_period: 30s
 
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+
     networks:
       - kafka-network
 
@@ -73,3 +76,6 @@ services:
 networks:
   kafka-network:
     driver: bridge
+
+volumes:
+  kafka-data:
