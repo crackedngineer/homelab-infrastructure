@@ -34,7 +34,7 @@ Out of the box it only trusts local Unix socket connections. Anything coming ove
 SSH into your PostgreSQL LXC and open the config:
 
 ```bash
-nano /etc/postgresql/*/main/pg_hba.conf
+nano /etc/postgresql/pg_hba.conf
 ```
 
 Add this line **at the top**, before the existing rules:
