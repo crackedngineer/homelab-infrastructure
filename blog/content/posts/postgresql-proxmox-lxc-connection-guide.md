@@ -1,7 +1,7 @@
 +++
 authors = ["crackedngineer"]
 title = "Can't Connect to PostgreSQL in Proxmox LXC? Fix pg_hba.conf"
-date = "2026-04-24"
+date = "2026-04-23"
 description = "Spun up a PostgreSQL LXC using the Proxmox helper script and immediately hit connection errors from whoDB and psql? One line in pg_hba.conf fixes it."
 tags = [
     "postgresql",
