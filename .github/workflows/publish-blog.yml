@@ -3,10 +3,10 @@ name: Deploy Hugo site to GitHub Pages
 on:
     push:
         branches:
-            - main  # Set a branch to deploy on push
+            - master  # Set a branch to deploy on push
     pull_request:
         branches:
-            - main  # Set a branch to deploy on PR
+            - master  # Set a branch to deploy on PR
 
 jobs:
     build-and-deploy:
@@ -29,7 +29,7 @@ jobs:
 
             - name: Deploy to GitHub Pages
               uses: peaceiris/actions-gh-pages@v4
-              if: github.ref == 'refs/heads/main'
+              if: github.ref == 'refs/heads/master'
               with:
                 github_token: ${{ secrets.GH_TOKEN }}
                 publish_dir: ./public
