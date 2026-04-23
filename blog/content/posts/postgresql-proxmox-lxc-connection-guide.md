@@ -15,7 +15,7 @@ tags = [
 reading_time = 5
 +++
 
-I used the [Proxmox helper script](https://tteck.github.io/Proxmox/) to spin up a PostgreSQL LXC — quick, clean, works great. But when I tried to connect from **whoDB** (a web-based DB browser I run on the same network) and even from `psql` on another machine, I got nothing. Connection refused. No useful error.
+I used the [Proxmox helper script](https://community-scripts.org/) to spin up a PostgreSQL LXC — quick, clean, works great. But when I tried to connect from **whoDB** (a web-based DB browser I run on the same network) and even from `psql` on another machine, I got nothing. Connection refused. No useful error.
 
 Spent more time than I'd like to admit on this. The fix turned out to be one line.
 
