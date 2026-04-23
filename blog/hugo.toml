@@ -1,4 +1,6 @@
-baseurl = "http://www.example.com"
+baseurl = "http://crackedngineer.github.io/homelab-infrastructure/"
+relativeURLs = true
+canonifyURLs = true
 title = "crackedngineer's homelab"
 theme = "hugo-coder"
 languagecode = "en"
