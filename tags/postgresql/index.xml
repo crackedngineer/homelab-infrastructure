@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Postgresql on crackedngineer's homelab</title><link>http://www.example.com/tags/postgresql/</link><description>Recent content in Postgresql on crackedngineer's homelab</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 05 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/tags/postgresql/index.xml" rel="self" type="application/rss+xml"/><item><title>Can't Connect to PostgreSQL in Proxmox LXC? Fix pg_hba.conf</title><link>http://www.example.com/posts/postgresql-proxmox-lxc-connection-guide/</link><pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate><guid>http://www.example.com/posts/postgresql-proxmox-lxc-connection-guide/</guid><description>&lt;p&gt;I used the &lt;a href="https://tteck.github.io/Proxmox/" class="external-link" target="_blank" rel="noopener"&gt;Proxmox helper script&lt;/a&gt; to spin up a PostgreSQL LXC — quick, clean, works great. But when I tried to connect from &lt;strong&gt;whoDB&lt;/strong&gt; (a web-based DB browser I run on the same network) and even from &lt;code&gt;psql&lt;/code&gt; on another machine, I got nothing. Connection refused. No useful error.&lt;/p&gt;
+&lt;p&gt;Spent more time than I&amp;rsquo;d like to admit on this. The fix turned out to be one line.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="why-it-happens"&gt;
+ Why It Happens
+ &lt;a class="heading-link" href="#why-it-happens"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;PostgreSQL locks down remote access by default. Even if the port is open and the service is running, the database won&amp;rsquo;t accept connections from outside the container unless you explicitly allow them in &lt;code&gt;pg_hba.conf&lt;/code&gt; — the Host-Based Authentication config file.&lt;/p&gt;</description></item></channel></rss>
