@@ -1,4 +1,4 @@
-baseurl = "http://crackedngineer.github.io/homelab-infrastructure/"
+baseurl = "http://crackedngineer.github.io/"
 relativeURLs = true
 canonifyURLs = true
 title = "crackedngineer's homelab"
