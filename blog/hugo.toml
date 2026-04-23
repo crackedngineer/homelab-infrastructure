@@ -15,10 +15,6 @@ enableRobotsTXT = true
 [pagination]
 pagerSize = 20
 
-[services]
-[services.disqus]
-shortname = "yourdiscussshortname"
-
 [markup.highlight]
 style = "github-dark"
 
@@ -44,6 +40,19 @@ hidecolorschemetoggle = false
 # customCSS = ["css/custom.css"]
 # customSCSS = ["scss/custom.scss"]
 # customJS = ["js/custom.js"]
+
+[params.giscus]
+repo = "crackedngineer/homelab-infrastructure"
+repoID = "R_kgDOPE4Knw"
+category = "General"
+categoryID = "DIC_kwDOPE4Kn84CtgeU"
+mapping = "pathname"
+strict = "0"
+reactionsEnabled = "1"
+emitMetadata = "0"
+inputPosition = "bottom"
+theme = "preferred_color_scheme"
+lang = "en"
 
 [taxonomies]
 category = "categories"
