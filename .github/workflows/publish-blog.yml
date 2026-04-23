@@ -2,7 +2,7 @@ name: Build and deploy
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 permissions:
@@ -94,7 +94,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: ./blog/public
+          path: ./public
   deploy:
     environment:
       name: github-pages
