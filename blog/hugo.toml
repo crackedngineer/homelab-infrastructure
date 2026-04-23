@@ -1,0 +1,72 @@
+baseurl = "http://www.example.com"
+title = "crackedngineer's homelab"
+theme = "hugo-coder"
+languagecode = "en"
+defaultcontentlanguage = "en"
+enableEmoji = true
+
+[pagination]
+pagerSize = 20
+
+[services]
+[services.disqus]
+shortname = "yourdiscussshortname"
+
+[markup.highlight]
+style = "github-dark"
+
+[params]
+author = "crackedngineer's homelab"
+info = "A personal website for sharing blog posts, projects, and tech insights."
+description = "crackedngineer's personal website"
+keywords = "blog,developer,personal,technology,projects,insights,hobbyist,homelab,homeserver,networking,programming,linux,opensource"
+avatarurl = "images/avatar.png"
+#gravatar = "crackedngineer@example.com"
+
+faviconSVG = "images/favicon.png"
+favicon_32 = "images/favicon-32x32.png"
+favicon_16 = "images/favicon-16x16.png"
+
+since = 2026
+
+enableTwemoji = true
+
+colorScheme = "auto"
+hidecolorschemetoggle = false
+
+# customCSS = ["css/custom.css"]
+# customSCSS = ["scss/custom.scss"]
+# customJS = ["js/custom.js"]
+
+[taxonomies]
+category = "categories"
+series = "series"
+tag = "tags"
+author = "authors"
+
+# Social links
+[[params.social]]
+name = "Github"
+icon = "fa-brands fa-github fa-2x"
+weight = 1
+url = "https://github.com/crackedngineer/"
+[[params.social]]
+name = "Twitter"
+icon = "fa-brands fa-x-twitter fa-2x"
+weight = 3
+url = "https://twitter.com/crackedngineer/"
+[[params.social]]
+name = "LinkedIn"
+icon = "fa-brands fa-linkedin fa-2x"
+weight = 4
+url = "https://linkedin.com/in/subhomoy-roy-choudhury/"
+
+# Menu links
+[[menu.main]]
+name = "Blog"
+weight = 1
+url = "posts/"
+[[menu.main]]
+name = "About"
+weight = 2
+url = "about/"
