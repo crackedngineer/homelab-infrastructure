@@ -6,6 +6,7 @@ theme = "hugo-coder"
 languagecode = "en"
 defaultcontentlanguage = "en"
 enableEmoji = true
+enableRobotsTXT = true
 
 [caches]
   [caches.images]
