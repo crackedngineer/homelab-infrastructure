@@ -26,10 +26,11 @@ jobs:
 
             - name: Build
               run: hugo --minify
+              working-directory: ./blog
 
             - name: Deploy to GitHub Pages
               uses: peaceiris/actions-gh-pages@v4
               if: github.ref == 'refs/heads/master'
               with:
                 github_token: ${{ secrets.GH_TOKEN }}
-                publish_dir: ./public
+                publish_dir: ./blog/public
