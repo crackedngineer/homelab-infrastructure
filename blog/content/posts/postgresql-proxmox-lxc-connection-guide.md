@@ -1,7 +1,7 @@
 +++
 authors = ["crackedngineer"]
 title = "Can't Connect to PostgreSQL in Proxmox LXC? Fix pg_hba.conf"
-date = "2023-07-05"
+date = "2026-04-24"
 description = "Spun up a PostgreSQL LXC using the Proxmox helper script and immediately hit connection errors from whoDB and psql? One line in pg_hba.conf fixes it."
 tags = [
     "postgresql",
@@ -12,7 +12,7 @@ tags = [
     "linux",
     "troubleshooting",
 ]
-reading_time = 3
+reading_time = 5
 +++
 
 I used the [Proxmox helper script](https://tteck.github.io/Proxmox/) to spin up a PostgreSQL LXC — quick, clean, works great. But when I tried to connect from **whoDB** (a web-based DB browser I run on the same network) and even from `psql` on another machine, I got nothing. Connection refused. No useful error.
