@@ -25,11 +25,11 @@ http:
       service: adguard-svc
       tls: {}
       middlewares:
+        - redirect-https
+        - authelia
         - secure-headers
         - rate-limit
         - compress
-        - redirect-https
-        - authelia
 
     authelia-router:
       entryPoints:
