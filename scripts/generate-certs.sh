@@ -9,8 +9,8 @@ echo "🔐 Installing local CA..."
 mkcert -install
 
 echo "📜 Generating wildcard cert..."
-mkcert -cert-file $CERT_DIR/_.$DOMAIN.pem \
-       -key-file $CERT_DIR/_.$DOMAIN-key.pem \
+mkcert -cert-file $CERT_DIR/_wildcard.$DOMAIN.pem \
+       -key-file $CERT_DIR/_wildcard.$DOMAIN-key.pem \
        "*.$DOMAIN"
 
 echo "✅ Certificates generated in $CERT_DIR"
