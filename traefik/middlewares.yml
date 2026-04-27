@@ -29,8 +29,12 @@ http:
     
     authelia:
       forwardAuth:
-        address: "http://192.168.31.12:9091/api/verify?rd=https://auth.authelia.homelab"
+        address: "http://192.168.31.12:9091/api/verify"
         trustForwardHeader: true
+        authRequestHeaders:
+          - X-Forwarded-Proto
+          - X-Forwarded-Host
+          - X-Forwarded-Uri
         authResponseHeaders:
           - Remote-User
           - Remote-Groups
