@@ -3,7 +3,7 @@ http:
     traefik-dashboard-router:
       entryPoints:
         - websecure
-      rule: Host(`traefik.homelab`)
+      rule: Host(`traefik.homelab.local`)
       service: traefik-dashboard-svc
       tls: {}
       middlewares:
@@ -13,7 +13,7 @@ http:
     proxmox-router:
       entryPoints:
         - websecure
-      rule: Host(`proxmox.homelab`)
+      rule: Host(`proxmox.homelab.local`)
       service: proxmox-svc
       tls: {}
       middlewares:
@@ -22,7 +22,7 @@ http:
     adguard-router:
       entryPoints:
         - websecure
-      rule: Host(`adguard.homelab`)
+      rule: Host(`adguard.homelab.local`)
       service: adguard-svc
       tls: {}
       middlewares:
@@ -35,7 +35,7 @@ http:
     authelia-router:
       entryPoints:
         - websecure
-      rule: Host(`auth.authelia.homelab`)
+      rule: Host(`auth.homelab.local`)
       service: authelia-svc
       tls: {}
       middlewares:
