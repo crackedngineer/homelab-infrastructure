@@ -30,6 +30,18 @@ http:
         - compress
         - redirect-https
 
+    authelia-router:
+      entryPoints:
+        - websecure
+      rule: Host(`auth.authelia.homelab`)
+      service: authelia-svc
+      tls: {}
+      middlewares:
+        - secure-headers
+        - rate-limit
+        - compress
+        - redirect-https
+
   services:
     traefik-dashboard-svc:
       loadBalancer:
@@ -48,6 +60,12 @@ http:
         passHostHeader: true
         servers:
           - url: "http://192.168.31.168:80"
+    
+    authelia-svc:
+      loadBalancer:
+        passHostHeader: true
+        servers:
+          - url: "http://192.168.31.12:9091"
 
   serversTransports:
     pve:
