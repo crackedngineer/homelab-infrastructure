@@ -32,7 +32,7 @@ http:
 
 providers:
   file:
-    filename: /etc/traefik/services/traefik-dashboard.yml
+    directory: /etc/traefik/services
     watch: true
 
 tls:
