@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CERT_DIR="./certs"
+CERT_DIR="/etc/traefik/certs"
 DOMAIN="homelab"
 
 mkdir -p $CERT_DIR
