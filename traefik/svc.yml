@@ -35,7 +35,7 @@ http:
     authelia-router:
       entryPoints:
         - websecure
-      rule: Host(`auth.authelia.homelab`)
+      rule: Host(`auth.homelab`)
       service: authelia-svc
       tls: {}
       middlewares:
