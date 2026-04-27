@@ -18,6 +18,18 @@ http:
       middlewares:
         - redirect-https
 
+    adguard-router:
+      entryPoints:
+        - websecure
+      rule: Host(`adguard.homelab`)
+      service: adguard-svc
+      tls: {}
+      middlewares:
+        - secure-headers
+        - rate-limit
+        - compress
+        - redirect-https
+
   services:
     traefik-dashboard-svc:
       loadBalancer:
@@ -30,6 +42,12 @@ http:
         serversTransport: "pve"
         servers:
           - url: "https://192.168.31.249:8006"
+    
+    adguard-svc:
+      loadBalancer:
+        passHostHeader: true
+        servers:
+          - url: "http://192.168.31.168:3000"
 
   serversTransports:
     pve:
