@@ -1,0 +1,13 @@
+http:
+  routers:
+    router-proxmox:
+      entryPoints:
+        - websecure
+      rule: Host(`proxmox.homelab`)
+      service: service-proxmox
+        
+  services:
+    service-proxmox:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.31.249:8006"

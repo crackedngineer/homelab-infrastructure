@@ -1,0 +1,13 @@
+http:
+  routers:
+    router-traefik-dashboard:
+      entryPoints:
+        - websecure
+      rule: Host(`traefik.homelab`)
+      service: service-traefik-dashboard
+        
+  services:
+    service-traefik-dashboard:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.31.5:8080"
