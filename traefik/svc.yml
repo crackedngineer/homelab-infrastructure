@@ -8,6 +8,7 @@ http:
       tls: {}
       middlewares:
         - redirect-https
+        - authelia
 
     proxmox-router:
       entryPoints:
@@ -29,6 +30,7 @@ http:
         - rate-limit
         - compress
         - redirect-https
+        - authelia
 
     authelia-router:
       entryPoints:
