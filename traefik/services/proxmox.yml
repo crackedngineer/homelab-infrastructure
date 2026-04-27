@@ -2,7 +2,7 @@ http:
   routers:
     proxmox-router:
       entryPoints:
-        - websecure
+        - web
       rule: Host(`proxmox.homelab`)
       service: proxmox-svc
 

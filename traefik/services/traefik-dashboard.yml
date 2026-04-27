@@ -2,7 +2,7 @@ http:
   routers:
     traefik-dashboard-router:
       entryPoints:
-        - websecure
+        - web
       rule: Host(`traefik.homelab`)
       service: traefik-dashboard-svc
         
