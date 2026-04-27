@@ -1,10 +1,16 @@
 http:
+  middlewares:
+    redirect-https:
+      redirectScheme:
+        scheme: https
+        
   routers:
     traefik-dashboard-router:
       entryPoints:
-        - web
+        - websecure
       rule: Host(`traefik.homelab`)
       service: traefik-dashboard-svc
+      tls: {}
         
   services:
     traefik-dashboard-svc:

@@ -22,14 +22,6 @@ api:
 
 ping: {}
 
-http:
-  routers:
-    traefik:
-      entryPoints:
-        - traefik
-      rule: Host(`traefik-bkp.homelab`)
-      service: api@internal
-
 providers:
   file:
     directory: /etc/traefik/services
