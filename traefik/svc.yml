@@ -1,0 +1,36 @@
+http:
+  routers:
+    traefik-dashboard-router:
+      entryPoints:
+        - websecure
+      rule: Host(`traefik.homelab`)
+      service: traefik-dashboard-svc
+      tls: {}
+      middlewares:
+        - redirect-https
+
+    proxmox-router:
+      entryPoints:
+        - websecure
+      rule: Host(`proxmox.homelab`)
+      service: proxmox-svc
+      tls: {}
+      middlewares:
+        - redirect-https
+
+  services:
+    traefik-dashboard-svc:
+      loadBalancer:
+        passHostHeader: true
+        servers:
+          - url: "http://192.168.31.5:8080"
+
+    proxmox-svc:
+      loadBalancer:
+        serversTransport: "pve"
+        servers:
+          - url: "https://192.168.31.249:8006"
+
+  serversTransports:
+    pve:
+      insecureSkipVerify: true

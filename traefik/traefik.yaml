@@ -24,7 +24,7 @@ ping: {}
 
 providers:
   file:
-    directory: /etc/traefik/services
+    directory: /etc/traefik
     watch: true
 
 tls:
