@@ -37,6 +37,7 @@ http:
           - X-Forwarded-Proto
           - X-Forwarded-Host
           - X-Forwarded-Uri
+          - X-Forwarded-For
         authResponseHeaders:
           - Remote-User
           - Remote-Groups
