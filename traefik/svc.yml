@@ -36,7 +36,7 @@ http:
         - websecure
       rule: Host(`auth.homelab.local`)
       service: authelia-svc
-      tls: {}
+      # tls: {}
       middlewares:
         - secure-headers
         - rate-limit
