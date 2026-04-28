@@ -36,7 +36,7 @@ http:
         - websecure
       rule: Host(`auth.homelab.local`)
       service: authelia-svc
-      # tls: {}
+      tls: {}
       middlewares:
         - secure-headers
         - rate-limit
@@ -65,6 +65,7 @@ http:
     authelia-svc:
       loadBalancer:
         passHostHeader: true
+        serversTransport: "pve"
         servers:
           - url: "https://192.168.31.12:9091"
 
