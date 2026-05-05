@@ -1,0 +1,17 @@
+http:
+  routers:
+    proxmox-router:
+      entryPoints:
+        - websecure
+      rule: Host(`proxmox.homelab.local`)
+      service: proxmox-svc
+      tls: {}
+      middlewares:
+        - redirect-https
+
+  services:
+    proxmox-svc:
+      loadBalancer:
+        serversTransport: "pve"
+        servers:
+          - url: "https://192.168.31.249:8006"

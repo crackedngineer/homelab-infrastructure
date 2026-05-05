@@ -1,0 +1,20 @@
+http:
+  routers:
+    pgadmin-router:
+      entryPoints:
+        - websecure
+      rule: Host(`pgadmin.homelab.local`)
+      service: pgadmin-svc
+      tls: {}
+      middlewares:
+        - redirect-https
+        - secure-headers
+        - rate-limit
+        - compress
+
+  services:
+    pgadmin-svc:
+      loadBalancer:
+        passHostHeader: true
+        servers:
+          - url: "http://192.168.31.171:5050"

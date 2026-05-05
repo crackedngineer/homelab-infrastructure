@@ -1,0 +1,21 @@
+http:
+  routers:
+    adguard-router:
+      entryPoints:
+        - websecure
+      rule: Host(`adguard.homelab.local`)
+      service: adguard-svc
+      tls: {}
+      middlewares:
+        - redirect-https
+        # - authelia
+        - secure-headers
+        - rate-limit
+        - compress
+
+  services:
+    adguard-svc:
+      loadBalancer:
+        passHostHeader: true
+        servers:
+          - url: "http://192.168.31.168:80"
