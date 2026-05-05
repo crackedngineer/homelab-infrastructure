@@ -5,7 +5,7 @@ http:
         - web
       rule: Host(`litellm.homelab.local`)
       service: litellm-svc
-      tls: {}
+      # tls: {}
       # middlewares:
       # - redirect-https
       # - secure-headers
