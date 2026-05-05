@@ -8,9 +8,9 @@ http:
       tls: {}
       middlewares:
         - redirect-https
-        - secure-headers
-        - rate-limit
-        - compress
+        # - secure-headers
+        # - rate-limit
+        # - compress
 
   services:
     litellm-svc:
