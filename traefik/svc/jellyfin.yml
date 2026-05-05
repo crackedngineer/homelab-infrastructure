@@ -7,14 +7,13 @@ http:
       service: jellyfin-svc
       tls: {}
       middlewares:
-        - redirect-https
         - secure-headers
-        - rate-limit
-        - compress
 
   services:
     jellyfin-svc:
       loadBalancer:
         passHostHeader: true
+        responseForwarding:
+          flushInterval: -1
         servers:
           - url: "http://192.168.31.75:8096"
