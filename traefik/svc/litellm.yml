@@ -2,15 +2,15 @@ http:
   routers:
     litellm-router:
       entryPoints:
-        - websecure
+        - web
       rule: Host(`litellm.homelab.local`)
       service: litellm-svc
       tls: {}
-      middlewares:
-        - redirect-https
-        # - secure-headers
-        # - rate-limit
-        # - compress
+      # middlewares:
+      # - redirect-https
+      # - secure-headers
+      # - rate-limit
+      # - compress
 
   services:
     litellm-svc:
