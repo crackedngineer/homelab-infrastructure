@@ -7,7 +7,6 @@ http:
       service: nextcloud-svc
       tls: {}
       middlewares:
-        - redirect-https
         - secure-headers
         - rate-limit
         - compress
@@ -16,5 +15,6 @@ http:
     nextcloud-svc:
       loadBalancer:
         passHostHeader: true
+        serversTransport: insecure
         servers:
           - url: "https://192.168.31.217"

@@ -12,6 +12,6 @@ http:
   services:
     proxmox-svc:
       loadBalancer:
-        serversTransport: "pve"
+        serversTransport: insecure
         servers:
           - url: "https://192.168.31.249:8006"

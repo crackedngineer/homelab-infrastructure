@@ -1,4 +1,4 @@
 http:
   serversTransports:
-    pve:
+    insecure:
       insecureSkipVerify: true

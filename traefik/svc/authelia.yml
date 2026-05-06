@@ -16,6 +16,6 @@ http:
     authelia-svc:
       loadBalancer:
         passHostHeader: true
-        serversTransport: "pve"
+        serversTransport: insecure
         servers:
           - url: "https://192.168.31.12:9091"
