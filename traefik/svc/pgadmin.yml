@@ -11,6 +11,7 @@ http:
         - secure-headers
         - rate-limit
         - compress
+        - x-frame-options
 
   services:
     pgadmin-svc:

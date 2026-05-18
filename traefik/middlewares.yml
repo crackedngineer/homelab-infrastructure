@@ -43,3 +43,8 @@ http:
           - Remote-Groups
           - Remote-Name
           - Remote-Email
+
+    x-frame-options:
+      headers:
+        frameDeny: false
+        customFrameOptionsValue: "SAMEORIGIN"
