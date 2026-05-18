@@ -46,6 +46,6 @@ http:
 
     x-frame-options:
       headers:
-        frameDeny: true
-        # customResponseHeaders:
-        #   X-Frame-Options: "SAMEORIGIN"
+        # frameDeny: true
+        customResponseHeaders:
+          X-Frame-Options: ""
