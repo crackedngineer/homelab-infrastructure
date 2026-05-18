@@ -8,10 +8,9 @@ http:
       tls: {}
       middlewares:
         - redirect-https
-        - secure-headers
+        - secure-headers-noframe
         - rate-limit
         - compress
-        - x-frame-options
 
   services:
     pgadmin-svc:

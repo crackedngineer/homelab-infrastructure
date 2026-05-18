@@ -14,6 +14,18 @@ http:
         contentTypeNosniff: true
         browserXssFilter: true
 
+    secure-headers-noframe:
+      headers:
+        sslRedirect: true
+        stsSeconds: 31536000
+        stsIncludeSubdomains: true
+        stsPreload: true
+        frameDeny: false
+        contentTypeNosniff: true
+        browserXssFilter: true
+        customResponseHeaders:
+          X-Frame-Options: ""   # explicitly clear whatever pgAdmin 
+
     rate-limit:
       rateLimit:
         average: 100
@@ -43,9 +55,3 @@ http:
           - Remote-Groups
           - Remote-Name
           - Remote-Email
-
-    x-frame-options:
-      headers:
-        # frameDeny: true
-        customResponseHeaders:
-          X-Frame-Options: ""
