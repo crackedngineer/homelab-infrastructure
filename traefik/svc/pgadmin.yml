@@ -3,7 +3,7 @@ http:
     pgadmin-router:
       entryPoints:
         - websecure
-      rule: PathPrefix(`/__/pgadmin`)
+      rule: Host(`pgadmin.homelab.local`)
       service: pgadmin-svc
       tls: {}
       middlewares:
