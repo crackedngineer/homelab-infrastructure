@@ -26,7 +26,7 @@ http:
       ipWhiteList:
         sourceRange:
           - "192.168.0.0/16"
-    
+
     authelia:
       forwardAuth:
         address: "https://192.168.31.12:9091/api/verify?rd=https://auth.homelab.local"
@@ -46,4 +46,6 @@ http:
 
     x-frame-options:
       headers:
-        frameDeny: true
+        # frameDeny: true
+        customResponseHeaders:
+          X-Frame-Options: "SAMEORIGIN"
