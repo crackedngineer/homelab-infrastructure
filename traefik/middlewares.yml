@@ -46,5 +46,5 @@ http:
 
     x-frame-options:
       headers:
-        frameDeny: false
+        frameDeny: true
         customFrameOptionsValue: "SAMEORIGIN"
