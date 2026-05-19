@@ -1,0 +1,13 @@
+[Unit]
+Description=Tailscale Serve for Jellyfin
+After=network-online.target tailscaled.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/tailscale serve --bg 8096
+ExecStop=/usr/bin/tailscale serve --shutdown
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
