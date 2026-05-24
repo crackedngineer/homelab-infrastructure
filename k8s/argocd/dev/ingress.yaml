@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: myapp
   namespace: myapp
+  annotations:
+      tailscale.com/hostname: myapp-svc
 spec:
   defaultBackend:
       service:
