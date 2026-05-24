@@ -5,9 +5,10 @@ metadata:
   annotations:
     tailscale.com/expose: "true"
 spec:
+  type: LoadBalancer
+  loadBalancerClass: tailscale
   selector:
     app: myapp
   ports:
   - port: 80
-    protocol: TCP
     targetPort: 80

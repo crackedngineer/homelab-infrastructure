@@ -32,8 +32,8 @@ helm install --dry-run v . | grep -i "data:" -A 4
 helm upgrade --install tailscale . \
   --namespace tailscale \
   --create-namespace \
-  --set oauth.clientId=$TAILSCALE_CLIENT_ID \
-  --set oauth.clientSecret=$TAILSCALE_CLIENT_SECRET
+  --set-string oauth.clientId=$TAILSCALE_CLIENT_ID \
+  --set-string oauth.clientSecret=$TAILSCALE_CLIENT_SECRET
 ```
 
 ## Uninstall tailscale helm chart
