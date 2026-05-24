@@ -12,7 +12,7 @@ spec:
   ingressClassName: tailscale
   tls:
     - hosts:
-        - nginx
+        - myapp-svc
   # rules:
   #   - http:
   #       paths:
