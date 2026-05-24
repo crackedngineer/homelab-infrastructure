@@ -3,9 +3,8 @@ kind: Ingress
 metadata:
   name: myapp
   namespace: myapp
-  annotations:
-    tailscale.com/expose: "true"
 spec:
+  ingressClassName: traefik
   rules:
     - http:
         paths:
