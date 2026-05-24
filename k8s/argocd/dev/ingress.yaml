@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: myapp
   namespace: myapp
-  annotations:
-      tailscale.com/hostname: myapp-svc
 spec:
   defaultBackend:
       service:
@@ -12,6 +10,9 @@ spec:
         port:
           number: 80
   ingressClassName: tailscale
+  tls:
+    - hosts:
+        - nginx
   # rules:
   #   - http:
   #       paths:
