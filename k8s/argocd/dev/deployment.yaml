@@ -12,7 +12,7 @@ spec:
       labels:
         app: myapp
     spec:
-      type: NodePort
+      type: ClusterIP
       containers:
       - name: myapp
         image: nginx:latest
