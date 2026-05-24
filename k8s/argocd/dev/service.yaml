@@ -2,11 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: myapp-service
-  annotations:
-    tailscale.com/expose: "true"
+  # annotations:
+  #   tailscale.com/expose: "true"
 spec:
-  type: LoadBalancer
-  loadBalancerClass: tailscale
   selector:
     app: myapp
   ports:
