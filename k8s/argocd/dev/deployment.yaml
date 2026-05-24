@@ -15,9 +15,9 @@ spec:
       type: NodePort
       containers:
       - name: myapp
-        image: nanajanashia/argocd-app:latest
+        image: nginx:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         resources:
           requests:
             memory: "64Mi"
