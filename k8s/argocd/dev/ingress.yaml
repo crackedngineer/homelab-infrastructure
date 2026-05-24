@@ -6,17 +6,17 @@ metadata:
 spec:
   defaultBackend:
       service:
-        name: nginx
+        name: myapp-service
         port:
           number: 80
   ingressClassName: tailscale
-  rules:
-    - http:
-        paths:
-          - path: /abc
-            pathType: Prefix
-            backend:
-              service:
-                name: myapp-service
-                port:
-                  number: 80
+  # rules:
+  #   - http:
+  #       paths:
+  #         - path: /abc
+  #           pathType: Prefix
+  #           backend:
+  #             service:
+  #               name: myapp-service
+  #               port:
+  #                 number: 80
