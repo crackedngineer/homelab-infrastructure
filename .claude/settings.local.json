@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "mcp__code-review-graph__get_architecture_overview_tool"
     ]
   },
   "enableAllProjectMcpServers": true,
