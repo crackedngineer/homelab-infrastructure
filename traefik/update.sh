@@ -9,6 +9,9 @@ WORKDIR="/tmp/traefik-repo"
 TARGET_DIR="/etc/traefik"
 BACKUP_DIR="/etc/traefik.bak.$(date +%s)"
 
+# Install rsync 
+apk add rsync -y
+
 echo "🚀 Starting Traefik config update..."
 
 # Step 1: Clone or update repo with sparse checkout
@@ -39,10 +42,10 @@ fi
 
 # Step 4: Replace config
 echo "📂 Replacing /etc/traefik..."
-rm -rf "$TARGET_DIR"
 mkdir -p "$TARGET_DIR"
-cp -r "$WORKDIR/$SPARSE_PATH/"* "$TARGET_DIR/"
-cp -r "$WORKDIR/$SPARSE_PATH/".* "$TARGET_DIR/" 2>/dev/null || true
+rsync -av --delete \
+  "$WORKDIR/$SPARSE_PATH/" \
+  "$TARGET_DIR/"
 
 # Step 5: Set permissions (optional)
 chown -R root:root "$TARGET_DIR"
@@ -57,6 +60,8 @@ elif command -v rc-service &>/dev/null && rc-service traefik status &>/dev/null;
 else
   echo "ℹ️ Traefik service not active — skipping restart"
 fi
+
+bash generate-certs.sh
 
 # Step 7: Configure Tailscale serve routes
 echo "🌐 Configuring Tailscale serve routes..."
