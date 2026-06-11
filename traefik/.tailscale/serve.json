@@ -1,18 +1,20 @@
 {
   "version": "0.0.1",
-  "TCP": {
-    "443": {
-      "HTTPS": true
-    }
-  },
-  "Web": {
-    "alpine-traefik.tailcda03.ts.net:443": {
-      "Handlers": {
-        "/": {
-          "Proxy": "http://127.0.0.1:443"
-        },
-        "/grafana": {
-          "Proxy": "http://127.0.0.1:443"
+  "Services": {
+    "alpine-traefik.tailcda03.ts.net": {
+      "TCP": {
+        "443": {
+          "HTTPS": true
+        }
+      },
+      "Web": {
+        "Handlers": {
+          "/": {
+            "Proxy": "http://127.0.0.1:443"
+          },
+          "/prometheus": {
+            "Proxy": "http://127.0.0.1:443"
+          }
         }
       }
     }
