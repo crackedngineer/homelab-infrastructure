@@ -57,4 +57,26 @@ else
   echo "ℹ️ Traefik service not active — skipping restart"
 fi
 
+# Step 7: Configure Tailscale serve routes
+echo "🌐 Configuring Tailscale serve routes..."
+
+if ! command -v tailscale &>/dev/null; then
+  echo "⚠️  tailscale CLI not found — skipping Tailscale serve setup"
+else
+  # Reset existing serve config to avoid stale routes
+  echo "🧹 Resetting existing Tailscale serve config..."
+  tailscale serve reset || true
+
+  # Grafana — root path
+  echo "📡 Adding Grafana route (/)..."
+  tailscale serve --bg https / http://127.0.0.1:443
+
+  # Prometheus — path prefix
+  echo "📡 Adding Prometheus route (/prometheus)..."
+  tailscale serve --bg https /prometheus http://127.0.0.1:443
+
+  echo "✅ Tailscale serve routes configured:"
+  tailscale serve status
+fi
+
 echo "✅ Traefik config updated successfully!"

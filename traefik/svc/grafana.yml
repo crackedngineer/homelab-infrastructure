@@ -3,7 +3,7 @@ http:
     grafana-router:
       entryPoints:
         - websecure
-      rule: Host(`grafana.homelab.local`)
+      rule: Host(`grafana.homelab.local`) || (Host(`alpine-traefik.tailcda03.ts.net`) && PathPrefix(`/grafana`))
       service: grafana-svc
       tls: {}
       middlewares:
@@ -11,6 +11,12 @@ http:
         - secure-headers
         - rate-limit
         - compress
+  
+  middlewares:
+    grafana-strip-prefix:
+      stripPrefix:
+        prefixes:
+          - "/grafana"
 
   services:
     grafana-svc:
