@@ -9,9 +9,6 @@ WORKDIR="/tmp/traefik-repo"
 TARGET_DIR="/etc/traefik"
 BACKUP_DIR="/etc/traefik.bak.$(date +%s)"
 
-# Install rsync 
-apk add rsync -y
-
 echo "🚀 Starting Traefik config update..."
 
 # Step 1: Clone or update repo with sparse checkout
@@ -19,13 +16,13 @@ if [ ! -d "$WORKDIR/.git" ]; then
   echo "📥 Cloning repo with sparse checkout..."
   git clone --depth=1 --filter=blob:none --sparse -b "$BRANCH" "$REPO_URL" "$WORKDIR"
   cd "$WORKDIR"
-  git sparse-checkout set --no-cone "$SPARSE_PATH/**" "$SPARSE_PATH/.tailscale/**"
+  git sparse-checkout set "$SPARSE_PATH"
 else
   echo "🔄 Updating existing repo..."
   cd "$WORKDIR"
   git fetch origin "$BRANCH"
   git reset --hard "origin/$BRANCH"
-  git sparse-checkout set --no-cone "$SPARSE_PATH/**" "$SPARSE_PATH/.tailscale/**"
+  git sparse-checkout set "$SPARSE_PATH"
 fi
 
 # Step 2: Validate folder exists
@@ -42,15 +39,12 @@ fi
 
 # Step 4: Replace config
 echo "📂 Replacing /etc/traefik..."
+rm -rf "$TARGET_DIR"
 mkdir -p "$TARGET_DIR"
-rsync -av --delete \
-  "$WORKDIR/$SPARSE_PATH/" \
-  "$TARGET_DIR/"
+cp -r "$WORKDIR/$SPARSE_PATH/"* "$TARGET_DIR/"
 
 # Step 5: Set permissions (optional)
 chown -R root:root "$TARGET_DIR"
-
-bash generate-certs.sh
 
 # Step 6: Restart Traefik service
 if command -v systemctl &>/dev/null && systemctl is-active --quiet traefik; then
@@ -61,25 +55,6 @@ elif command -v rc-service &>/dev/null && rc-service traefik status &>/dev/null;
   rc-service traefik restart
 else
   echo "ℹ️ Traefik service not active — skipping restart"
-fi
-
-# Step 7: Configure Tailscale serve routes
-echo "🌐 Configuring Tailscale serve routes..."
-
-if ! command -v tailscale &>/dev/null; then
-  echo "⚠️  tailscale CLI not found — skipping Tailscale serve setup"
-else
-  # Reset existing serve config to avoid stale routes
-  echo "🧹 Resetting existing Tailscale serve config..."
-  tailscale serve reset || true
-
-  # Grafana — root path
-  echo "📡 Adding Grafana route (/)..."
-  tailscale serve set-config --all "$TARGET_DIR/.tailscale/serve.json"
-  tailscale serve advertise svc:traefik
-
-  echo "✅ Tailscale serve routes configured:"
-  tailscale serve status
 fi
 
 echo "✅ Traefik config updated successfully!"
