@@ -1,26 +1,9 @@
 {
   "version": "0.0.1",
-  "Services": {
+  "services": {
     "svc:traefik": {
-      "TCP": {
-        "443": {
-          "HTTPS": true
-        },
-        "80": {
-          "HTTP": true
-        }
-      }
-    }
-  },
-  "Web": {
-    "alpine-traefik.tailcda03.ts.net:443": {
-      "Handlers": {
-        "/": {
-          "Proxy": "http://127.0.0.1:443"
-        },
-        "/grafana": {
-          "Proxy": "http://127.0.0.1:443"
-        }
+      "endpoints": {
+        "tcp:443": "https://127.0.0.1:443"
       }
     }
   }
