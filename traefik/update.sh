@@ -16,13 +16,13 @@ if [ ! -d "$WORKDIR/.git" ]; then
   echo "📥 Cloning repo with sparse checkout..."
   git clone --depth=1 --filter=blob:none --sparse -b "$BRANCH" "$REPO_URL" "$WORKDIR"
   cd "$WORKDIR"
-  git sparse-checkout set "$SPARSE_PATH"
+  git sparse-checkout set --no-cone "$SPARSE_PATH/**" "$SPARSE_PATH/.tailscale/**"
 else
   echo "🔄 Updating existing repo..."
   cd "$WORKDIR"
   git fetch origin "$BRANCH"
   git reset --hard "origin/$BRANCH"
-  git sparse-checkout set "$SPARSE_PATH"
+  git sparse-checkout set --no-cone "$SPARSE_PATH/**" "$SPARSE_PATH/.tailscale/**"
 fi
 
 # Step 2: Validate folder exists
