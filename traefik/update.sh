@@ -42,6 +42,7 @@ echo "📂 Replacing /etc/traefik..."
 rm -rf "$TARGET_DIR"
 mkdir -p "$TARGET_DIR"
 cp -r "$WORKDIR/$SPARSE_PATH/"* "$TARGET_DIR/"
+cp -r "$WORKDIR/$SPARSE_PATH/".* "$TARGET_DIR/" 2>/dev/null || true
 
 # Step 5: Set permissions (optional)
 chown -R root:root "$TARGET_DIR"
