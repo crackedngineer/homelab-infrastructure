@@ -69,11 +69,7 @@ else
 
   # Grafana — root path
   echo "📡 Adding Grafana route (/)..."
-  tailscale serve --bg https / http://127.0.0.1:443
-
-  # Prometheus — path prefix
-  echo "📡 Adding Prometheus route (/prometheus)..."
-  tailscale serve --bg https /prometheus http://127.0.0.1:443
+  tailscale serve set-config --all "$TARGET_DIR/.tailscale/serve.json"
 
   echo "✅ Tailscale serve routes configured:"
   tailscale serve status
