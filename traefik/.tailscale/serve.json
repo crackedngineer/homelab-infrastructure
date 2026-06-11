@@ -1,4 +1,5 @@
 {
+  "version": "0.0.1",
   "TCP": {
     "443": {
       "HTTPS": true
