@@ -71,6 +71,7 @@ else
   # Grafana — root path
   echo "📡 Adding Grafana route (/)..."
   tailscale serve set-config --all "$TARGET_DIR/.tailscale/serve.json"
+  tailscale serve advertise svc:traefik
 
   echo "✅ Tailscale serve routes configured:"
   tailscale serve status

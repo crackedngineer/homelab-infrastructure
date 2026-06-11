@@ -1,21 +1,9 @@
 {
   "version": "0.0.1",
-  "Services": {
-    "alpine-traefik.tailcda03.ts.net": {
-      "TCP": {
-        "443": {
-          "HTTPS": true
-        }
-      },
-      "Web": {
-        "Handlers": {
-          "/": {
-            "Proxy": "http://127.0.0.1:443"
-          },
-          "/prometheus": {
-            "Proxy": "http://127.0.0.1:443"
-          }
-        }
+  "services": {
+    "svc:traefik": {
+      "endpoints": {
+        "tcp:443": "https://127.0.0.1:443"
       }
     }
   }
