@@ -7,9 +7,10 @@ http:
       service: opencloud-svc
       tls: {}
       middlewares:
-        - secure-headers
+        # - secure-headers
         - rate-limit
         - compress
+        - redirect-https
 
     collabora-router:
       entryPoints:
@@ -18,9 +19,10 @@ http:
       service: collabora-svc
       tls: {}
       middlewares:
-        - secure-headers
+        # - secure-headers
         - rate-limit
         - compress
+        - redirect-https
 
     wopi-router:
       entryPoints:
@@ -29,9 +31,10 @@ http:
       service: wopi-svc
       tls: {}
       middlewares:
-        - secure-headers
+        # - secure-headers
         - rate-limit
         - compress
+        - redirect-https
 
   services:
     opencloud-svc:
