@@ -39,16 +39,16 @@ http:
         passHostHeader: true
         serversTransport: insecure
         servers:
-          - url: "https://192.168.31.63:9200"
+          - url: "http://192.168.31.63:9200"
     collabora-svc:
       loadBalancer:
         passHostHeader: true
         serversTransport: insecure
         servers:
-          - url: "https://192.168.31.63:9980"
+          - url: "http://192.168.31.63:9980"
     wopi-svc:
       loadBalancer:
         passHostHeader: true
         serversTransport: insecure
         servers:
-          - url: "https://192.168.31.63:9300"
+          - url: "http://192.168.31.63:9300"
