@@ -3,23 +3,9 @@ http:
     traefik-dashboard-router:
       entryPoints:
         - websecure
-      rule: Host(`traefik.homelab.local`) || (Host(`alpine-traefik.tailcda03.ts.net`) && PathPrefix(`/traefik`))
-      # service: traefik-dashboard-svc/
+      rule: Host(`traefik.homelab.local`) || (Host(`alpine-traefik.tailcda03.ts.net`)
       service: api@internal
       tls: {}
       middlewares:
         - traefik-strip-prefix
         - redirect-https
-
-  middlewares:
-    traefik-strip-prefix:
-      stripPrefix:
-        prefixes:
-          - "/traefik"
-
-  # services:
-  #   traefik-dashboard-svc:
-  #     loadBalancer:
-  #       passHostHeader: true
-  #       servers:
-  #         - url: "http://192.168.31.5:8080"
