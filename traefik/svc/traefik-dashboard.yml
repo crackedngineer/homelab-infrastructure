@@ -8,14 +8,14 @@ http:
       service: api@internal
       tls: {}
       middlewares:
-        # - traefik-strip-prefix
+        - traefik-strip-prefix
         - redirect-https
 
-  # middlewares:
-  #   traefik-strip-prefix:
-  #     stripPrefix:
-  #       prefixes:
-  #         - "/traefik"
+  middlewares:
+    traefik-strip-prefix:
+      stripPrefix:
+        prefixes:
+          - "/traefik"
 
   # services:
   #   traefik-dashboard-svc:
