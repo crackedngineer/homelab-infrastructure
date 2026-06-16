@@ -13,11 +13,11 @@ http:
         - rate-limit
         - compress
   
-  middlewares:
-    grafana-strip-prefix:
-      stripPrefix:
-        prefixes:
-          - "/grafana"
+  # middlewares:
+  #   grafana-strip-prefix:
+  #     stripPrefix:
+  #       prefixes:
+  #         - "/grafana"
 
   services:
     grafana-svc:
