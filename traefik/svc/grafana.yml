@@ -7,7 +7,7 @@ http:
       service: grafana-svc
       tls: {}
       middlewares:
-        - grafana-strip-prefix
+        # - grafana-strip-prefix
         - redirect-https
         - secure-headers
         - rate-limit

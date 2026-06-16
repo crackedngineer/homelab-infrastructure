@@ -3,7 +3,7 @@ http:
     traefik-dashboard-router:
       entryPoints:
         - websecure
-      rule: Host(`traefik.homelab.local`)
+      rule: Host(`traefik.homelab.local`) || (Host(`alpine-traefik.tailcda03.ts.net`) && PathPrefix(`/traefik`))
       service: traefik-dashboard-svc
       tls: {}
       middlewares:
