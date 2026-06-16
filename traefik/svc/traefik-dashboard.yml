@@ -7,5 +7,4 @@ http:
       service: api@internal
       tls: {}
       middlewares:
-        - traefik-strip-prefix
         - redirect-https
