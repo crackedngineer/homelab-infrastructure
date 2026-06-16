@@ -1,0 +1,54 @@
+http:
+  routers:
+    opencloud-router:
+      entryPoints:
+        - websecure
+      rule: Host(`opencloud.homelab.local`)
+      service: opencloud-svc
+      tls: {}
+      middlewares:
+        - secure-headers
+        - rate-limit
+        - compress
+
+    collabora-router:
+      entryPoints:
+        - websecure
+      rule: Host(`collabora.homelab.local`)
+      service: collabora-svc
+      tls: {}
+      middlewares:
+        - secure-headers
+        - rate-limit
+        - compress
+
+    wopi-router:
+      entryPoints:
+        - websecure
+      rule: Host(`wopi.homelab.local`)
+      service: wopi-svc
+      tls: {}
+      middlewares:
+        - secure-headers
+        - rate-limit
+        - compress
+
+  services:
+    opencloud-svc:
+      loadBalancer:
+        passHostHeader: true
+        serversTransport: insecure
+        servers:
+          - url: "https://192.168.31.63:9200"
+    collabora-svc:
+      loadBalancer:
+        passHostHeader: true
+        serversTransport: insecure
+        servers:
+          - url: "https://192.168.31.63:9980"
+    wopi-svc:
+      loadBalancer:
+        passHostHeader: true
+        serversTransport: insecure
+        servers:
+          - url: "https://192.168.31.63:9300"
