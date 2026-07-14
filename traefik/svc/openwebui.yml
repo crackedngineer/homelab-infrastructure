@@ -6,11 +6,11 @@ http:
       rule: Host(`openwebui.homelab.local`)
       service: openwebui-svc
       tls: {}
-      middlewares:
-        - redirect-https
-        - secure-headers-noframe
-        - rate-limit
-        - compress
+      # middlewares:
+      #   - redirect-https
+      #   - secure-headers-noframe
+      #   - rate-limit
+      #   - compress
 
   services:
     openwebui-svc:
