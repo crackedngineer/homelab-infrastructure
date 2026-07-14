@@ -8,7 +8,7 @@ http:
       tls: {}
       middlewares:
         - redirect-https
-        - secure-headers
+        # - secure-headers
         - rate-limit
         - compress
 
